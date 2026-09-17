@@ -2,7 +2,7 @@ const episodes = [
     {
         title: "Серия 1: Muddy Puddles (Грязные лужи)",
         videoUrl: "https://youtube.com",
-        question: "Что обожает делать Пеппа в этой серии?",
+        question: "What does Peppa love to do in muddy puddles?",
         correct: "Jump",
         options: [
             { word: "Jump", trans: "Прыгать", img: "https://icons8.com" },
@@ -13,7 +13,7 @@ const episodes = [
     {
         title: "Серия 2: George's Dinosaur (Динозавр Джорджа)",
         videoUrl: "https://youtube.com",
-        question: "Какое животное является любимой игрушкой Джорджа?",
+        question: "What is George's favorite toy?",
         correct: "Dinosaur",
         options: [
             { word: "Cat", trans: "Кошка", img: "https://icons8.com" },
@@ -24,7 +24,7 @@ const episodes = [
     {
         title: "Серия 3: Best Friend (Лучший друг)",
         videoUrl: "https://youtube.com",
-        question: "Кто приходит в гости к Пеппе? (Овечка Сьюзи — её...)",
+        question: "Suzy Sheep is Peppa's best...",
         correct: "Friend",
         options: [
             { word: "Friend", trans: "Друг", img: "https://icons8.com" },
@@ -35,7 +35,7 @@ const episodes = [
     {
         title: "Серия 4: Polly Parrot (Попугай Полли)",
         videoUrl: "https://youtube.com",
-        question: "Какая птица умеет повторять слова за дедушкой и бабушкой?",
+        question: "What kind of bird is Polly?",
         correct: "Parrot",
         options: [
             { word: "Duck", trans: "Утка", img: "https://icons8.com" },
@@ -46,7 +46,7 @@ const episodes = [
     {
         title: "Серия 5: Hide and Seek (Прятки)",
         videoUrl: "https://youtube.com",
-        question: "В какую популярную игру играют дети?",
+        question: "What game are Peppa and George playing?",
         correct: "Hide and seek",
         options: [
             { word: "Football", trans: "Футбол", img: "https://icons8.com" },
@@ -58,7 +58,7 @@ const episodes = [
 
 let currentLevel = parseInt(localStorage.getItem('peppa_project_level')) || 0;
 let selectedWord = "";
-let wrongAttempts = 0; // Счетчик ошибок для подсказки
+let wrongAttempts = 0;
 
 function initGame() {
     if (currentLevel >= episodes.length) {
@@ -69,7 +69,7 @@ function initGame() {
     }
 
     const currentData = episodes[currentLevel];
-    wrongAttempts = 0; // Сбрасываем ошибки при входе на новый уровень
+    wrongAttempts = 0;
     
     document.getElementById('levelDisplay').innerText = currentLevel + 1;
     document.getElementById('scoreDisplay').innerText = currentLevel * 10;
@@ -86,7 +86,6 @@ function initGame() {
     currentData.options.forEach(opt => {
         const card = document.createElement('div');
         card.className = 'word-card';
-        // Добавляем ID для удобного поиска карточки при подсказке
         card.id = "card-" + opt.word.replace(/\s+/g, '-'); 
         card.innerHTML = `
             <img src="${opt.img}">
@@ -121,8 +120,6 @@ function checkAnswer() {
         initGame();
     } else {
         wrongAttempts++;
-        
-        // Если ребенок ошибся 2 раза, включаем визуальную подсказку
         if (wrongAttempts >= 2) {
             alert("❌ Неправильно. Давай я тебе намекну! Правильная карточка подсвечена жёлтым 💡");
             highlightCorrectAnswer(correctAnswer);
@@ -132,7 +129,6 @@ function checkAnswer() {
     }
 }
 
-// Функция подсветки правильной карточки
 function highlightCorrectAnswer(correctWord) {
     const cardId = "card-" + correctWord.replace(/\s+/g, '-');
     const correctCard = document.getElementById(cardId);
@@ -152,4 +148,5 @@ function resetProgress() {
 }
 
 initGame();
+
 

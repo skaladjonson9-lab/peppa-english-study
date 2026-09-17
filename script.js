@@ -58,6 +58,7 @@ const episodes = [
 
 let currentLevel = parseInt(localStorage.getItem('peppa_project_level')) || 0;
 let selectedWord = "";
+let wrongAttempts = 0; // Счетчик ошибок для подсказки
 
 function initGame() {
     if (currentLevel >= episodes.length) {
@@ -68,6 +69,7 @@ function initGame() {
     }
 
     const currentData = episodes[currentLevel];
+    wrongAttempts = 0; // Сбрасываем ошибки при входе на новый уровень
     
     document.getElementById('levelDisplay').innerText = currentLevel + 1;
     document.getElementById('scoreDisplay').innerText = currentLevel * 10;
@@ -84,6 +86,8 @@ function initGame() {
     currentData.options.forEach(opt => {
         const card = document.createElement('div');
         card.className = 'word-card';
+        // Добавляем ID для удобного поиска карточки при подсказке
+        card.id = "card-" + opt.word.replace(/\s+/g, '-'); 
         card.innerHTML = `
             <img src="${opt.img}">
             <div class="english-word">${opt.word}</div>
@@ -108,13 +112,34 @@ function initGame() {
 function checkAnswer() {
     if (!selectedWord) { return alert("🐷 Выбери ответ!"); }
 
-    if (selectedWord === episodes[currentLevel].correct) {
+    const correctAnswer = episodes[currentLevel].correct;
+
+    if (selectedWord === correctAnswer) {
         alert("🌟 Умница! Задание выполнено.");
         currentLevel++;
         localStorage.setItem('peppa_project_level', currentLevel);
         initGame();
     } else {
-        alert("❌ Неправильно. Попробуй еще раз!");
+        wrongAttempts++;
+        
+        // Если ребенок ошибся 2 раза, включаем визуальную подсказку
+        if (wrongAttempts >= 2) {
+            alert("❌ Неправильно. Давай я тебе намекну! Правильная карточка подсвечена жёлтым 💡");
+            highlightCorrectAnswer(correctAnswer);
+        } else {
+            alert("❌ Неправильно. Попробуй еще раз!");
+        }
+    }
+}
+
+// Функция подсветки правильной карточки
+function highlightCorrectAnswer(correctWord) {
+    const cardId = "card-" + correctWord.replace(/\s+/g, '-');
+    const correctCard = document.getElementById(cardId);
+    if (correctCard) {
+        correctCard.style.borderColor = "#ffeb3b";
+        correctCard.style.backgroundColor = "#fffde7";
+        correctCard.style.borderBottomColor = "#fdd835";
     }
 }
 
@@ -127,3 +152,4 @@ function resetProgress() {
 }
 
 initGame();
+

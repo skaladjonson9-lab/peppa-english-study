@@ -126,7 +126,7 @@
             <h2 id="lessonTitle">Загрузка урока...</h2>
             <p id="lessonDesc">Посмотри отрывок серии и выполни задание ниже!</p>
             <div class="video-wrapper">
-                <iframe id="videoPlayer" src="" allowfullscreen></iframe>
+                <iframe id="videoPlayer" src="https://youtube.com" allowfullscreen></iframe>
             </div>
         </div>
 
@@ -149,3 +149,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+

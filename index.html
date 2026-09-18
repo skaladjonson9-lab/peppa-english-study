@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" translate="no" class="notranslate">
 <head>
     <meta charset="UTF-8">
+    <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Peppa English Tracker, Arcade & Shop</title>
     <style>
@@ -154,7 +155,7 @@
     </style>
 </head>
 <body>
-    <header>
+    <header translate="no" class="notranslate">
         <div class="header-top">
             <div class="logo">🐷 Peppa Study & Shop</div>
             <div class="progress-container" id="progContainer">
@@ -191,7 +192,7 @@
         <div class="arcade-card">
             <h2 style="color: #ff4081; margin: 0;">Peppa's Word Arcade 🎈</h2>
             <p style="color: #777; margin-top: 5px;">Послушай слово и выбери правильный перевод карточки!</p>
-            <div class="arcade-word" id="arcadeTargetWord">Apple</div>
+            <div class="arcade-word notranslate" translate="no" id="arcadeTargetWord">Apple</div>
             <div class="cards-grid" id="arcadeCardsContainer"></div>
             <button class="action-btn" onclick="checkArcadeAnswer()">ПРОВЕРИТЬ</button>
         </div>
@@ -202,7 +203,7 @@
             <h2 style="color: #ff4081; margin: 0; text-align: center;">Призовой Магазин Пеппы 🧸</h2>
             <p style="color: #777; text-align: center; margin-bottom: 20px;">Меняй свои заработанные ⭐ Звездные монеты на крутые призы!</p>
             
-            <div class="shop-grid">
+            <div class="shop-grid" translate="no" class="notranslate">
                 <div class="shop-item">
                     <span style="font-size: 3.5rem;">🏆</span>
                     <h3>Золотой Диплом</h3>
@@ -242,7 +243,7 @@
             <button class="modal-btn" id="modalBtn" onclick="closeModal()">ДАЛЬШЕ 👉</button>
         </div>
     </div>
-    <script>
+    <script translate="no" class="notranslate">
         const episodes = [
             {
                 title: "Урок 1: Веселая прогулка 💦",
@@ -397,7 +398,7 @@
                 const card = document.createElement('div');
                 card.className = 'word-card';
                 card.id = containerId + "-card-" + opt.word.replace(/\s+/g, '-'); 
-                card.innerHTML = `<img src="${opt.img}"><div class="english-word">${opt.word}</div><div class="translation">${opt.trans}</div>`;
+                card.innerHTML = `<img src="${opt.img}"><div class="english-word notranslate" translate="no">${opt.word}</div><div class="translation">${opt.trans}</div>`;
                 card.onclick = () => {
                     document.querySelectorAll('#' + containerId + ' .word-card').forEach(c => c.classList.remove('selected'));
                     card.classList.add('selected'); selectedWord = opt.word; speakEnglish(opt.word);
@@ -489,6 +490,7 @@
             }
         }
 
+        // Фикс бага бесконечных очков: Сбрасывается ТОЛЬКО уровень серий, а монеты и магазин больше не трогаются и не накручиваются!
         function resetProgress() {
             localStorage.removeItem('peppa_project_level');
             currentLevel = 0;

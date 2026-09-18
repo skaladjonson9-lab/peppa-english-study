@@ -41,7 +41,6 @@
         }
         .header-top { display: flex; justify-content: space-between; align-items: center; width: 100%; }
         .logo { font-size: 1.4rem; font-weight: bold; color: #ff6b9d; text-shadow: 1px 1px 0 #fff; }
-        
         .tabs-container { display: flex; gap: 8px; margin-top: 5px; flex-wrap: wrap; }
         .tab-btn {
             background: none; border: none; font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif !important; font-size: 0.95rem;
@@ -97,6 +96,7 @@
         }
         .word-card .english-word { font-size: 1.2rem; font-weight: bold; color: #ff6b9d; }
         .word-card .translation { font-size: 0.9rem; color: #888; margin-top: 3px; }
+
         .action-btn {
             background-color: var(--duo-green); color: white; border: none;
             border-bottom: 5px solid var(--duo-green-dark); border-radius: 18px;
@@ -107,7 +107,6 @@
         .action-btn:active { transform: translateY(4px); border-bottom-width: 1px; }
         .hidden { display: none !important; }
         .win-screen { text-align: center; padding: 40px; }
-
         .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
         .shop-item {
             background: #fff; border: 3px solid #f5e1eb; border-bottom-width: 6px;
@@ -132,7 +131,9 @@
             box-shadow: 0 6px 0px #ffd2e3; transition: all 0.1s;
         }
         .audio-repeat-btn:active { transform: translateY(4px); box-shadow: 0 2px 0px #ffd2e3; border-bottom-width: 1px; }
+        
         .diploma-view { border: 8px double #ffd700; border-radius: 24px; padding: 35px 15px; background: #fffdf0; max-width: 450px; margin: 0 auto; text-align: center; }
+        .royal-diploma-view { border: 10px ridge #ff6b9d; border-radius: 30px; padding: 40px 20px; background: linear-gradient(135deg, #fffdf0 0%, #fff0f5 100%); max-width: 450px; margin: 0 auto; text-align: center; box-shadow: 0 0 20px rgba(255, 107, 157, 0.3); }
         /* Стили Личного кабинета и Кастомизации */
         .profile-header { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; border-bottom: 2px solid #f5e1eb; padding-bottom: 15px; position: relative; }
         .avatar-container { position: relative; width: 95px; height: 90px; }
@@ -158,12 +159,23 @@
             animation: slow-rainbow 8s linear infinite;
             font-weight: bold;
         }
+        
+        /* Королевский золотой ник для 100% прохождения */
+        .profile-meta h2.royal-gold {
+            background: linear-gradient(to right, #ffd700, #ffa500, #ff8c00, #ffd700);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: slow-rainbow 4s linear infinite;
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.2);
+        }
         .profile-meta button { background: none; border: none; color: #ff6b9d; font-weight: bold; font-family: inherit; cursor: pointer; padding: 0; margin-top: 5px; font-size: 0.95rem; text-decoration: underline; }
         .avatar-selector { display: flex; gap: 10px; margin-top: 15px; justify-content: center; flex-wrap: wrap; background: #fff6fc; padding: 12px; border-radius: 20px; border: 3px dashed #f5e1eb; }
         .avatar-option { font-size: 2.2rem; cursor: pointer; padding: 3px; border-radius: 50%; width: 52px; height: 52px; display: flex; justify-content: center; align-items: center; border: 3px solid transparent; transition: all 0.2s; }
         .avatar-option.selected { border-color: var(--primary-pink); background: white; box-shadow: 0 3px 0 var(--primary-pink); }
 
-        /* Книга достижений и сетка для 30 ачивок */
+        /* Книга достижений и сетка для 35 ачивок */
         .achievements-title { font-size: 1.3rem; font-weight: bold; margin: 25px 0 15px 0; text-align: left; color: #ff6b9d; border-bottom: 3px solid #f5e1eb; padding-bottom: 5px; }
         .achievements-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; max-height: 420px; overflow-y: auto; padding-right: 5px; }
         .ach-item { display: flex; align-items: center; gap: 12px; background: #fffcfd; border: 3px solid #fcecf2; border-radius: 20px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.2s; }
@@ -252,19 +264,36 @@
             <div class="shop-grid" translate="no" class="notranslate">
                 <div class="shop-item"><span style="font-size: 3rem;">🏆</span><h3>Золотой Диплом</h3><p>Открой диплом знатока прямо на экране!</p><button class="buy-btn" id="btnBuyItem1" onclick="buyItem(1, 100)">⭐ 100 монет</button></div>
                 <div class="shop-item"><span style="font-size: 3rem;">👑</span><h3>Золотая Тема</h3><p>Перекрась весь дизайн сайта в золотой стиль!</p><button class="buy-btn" id="btnBuyItem2" onclick="buyItem(2, 250)">⭐ 250 монет</button></div>
-                <div class="shop-item"><span style="font-size: 3rem;">🦖</span><h3>Стикер Динозавра</h3><p>Открывает редкую ачивку Динозавра в профиле!</p><button class="buy-btn" id="btnBuyItem3" onclick="buyItem(3, 50)">⭐ 50 монет</button></div>
-                <div class="shop-item"><span style="font-size: 3rem;">🌈</span><h3>Радужный Ник</h3><p>Твоё имя в личном профиле засияет всеми цветами!</p><button class="buy-btn" id="btnBuyItem4" onclick="buyItem(4, 70)">⭐ 70 монет</button></div>
-                <div class="shop-item"><span style="font-size: 3rem;">🎅</span><h3>Костюм Папы Свина</h3><p>Открывает секретный аватар Папы Свина в профиле!</p><button class="buy-btn" id="btnBuyItem5" onclick="buyItem(5, 150)">⭐ 150 монет</button></div>
-                <div class="shop-item"><span style="font-size: 3rem;">📻</span><h3>Музыкальный Плеер</h3><p>Открывает скрытый плеер и редкую ачивку меломана!</p><button class="buy-btn" id="btnBuyItem6" onclick="buyItem(6, 200)">⭐ 200 монет</button></div>
+                <div class="shop-item"><span style="font-size: 3rem;">🦖</span><h3>Стикер Динозавра</h3><p>Открывает ачивку Динозавра в профиле!</p><button class="buy-btn" id="btnBuyItem3" onclick="buyItem(3, 50)">⭐ 50 монет</button></div>
+                <div class="shop-item"><span style="font-size: 3rem;">🌈</span><h3>Радужный Ник</h3><p>Твоё имя засияет всеми цветами радуги!</p><button class="buy-btn" id="btnBuyItem4" onclick="buyItem(4, 70)">⭐ 70 монет</button></div>
+                <div class="shop-item"><span style="font-size: 3rem;">🎅</span><h3>Костюм Папы Свина</h3><p>Открывает аватар Папы Свина в профиле!</p><button class="buy-btn" id="btnBuyItem5" onclick="buyItem(5, 150)">⭐ 150 монет</button></div>
+                <div class="shop-item"><span style="font-size: 3rem;">📻</span><h3>Музыкальный Плеер</h3><p>Открывает ачивку меломана в профиле!</p><button class="buy-btn" id="btnBuyItem6" onclick="buyItem(6, 200)">⭐ 200 монет</button></div>
+                <!-- Новые 4 товара для расширения лавки -->
+                <div class="shop-item"><span style="font-size: 3rem;">🎈</span><h3>Воздушный Шарик</h3><p>Милый розовый шарик Свинки Пеппы!</p><button class="buy-btn" id="btnBuyItem7" onclick="buyItem(7, 30)">⭐ 30 монет</button></div>
+                <div class="shop-item"><span style="font-size: 3rem;">🍦</span><h3>Мега Мороженое</h3><p>Огромный клубничный рожок безлимитно!</p><button class="buy-btn" id="btnBuyItem8" onclick="buyItem(8, 60)">⭐ 60 монет</button></div>
+                <div class="shop-item"><span style="font-size: 3rem;">🚜</span><h3>Трактор Дедушки</h3><p>Мощный синий трактор для весёлой фермы!</p><button class="buy-btn" id="btnBuyItem9" onclick="buyItem(9, 120)">⭐ 120 монет</button></div>
+                <div class="shop-item"><span style="font-size: 3rem;">🏰</span><h3>Королевский Замок</h3><p>Твой собственный замок из песка и камня!</p><button class="buy-btn" id="btnBuyItem10" onclick="buyItem(10, 350)">⭐ 350 монет</button></div>
             </div>
         </div>
+        
+        <!-- Обычный Диплом знатока -->
         <div class="diploma-card hidden" id="diplomaBlock">
             <div class="diploma-view">
                 <span style="font-size: 5rem;">🏆</span>
                 <h1 style="color: #ff6b9d; margin: 10px 0; font-size: 2.2rem;">ДИПЛОМ ЗНАТОКА</h1>
-                <p style="font-size: 1.2rem; color: #555;">Награждается самый умный ученик</p>
-                <p style="font-size: 1.5rem; font-weight: bold; color: var(--duo-green); margin: 20px 0;">За успешное изучение английского языка вместе со Свинкой Пеппой!</p>
+                <p style="font-size: 1.2rem; color: #555;">Награждается самый умный ученик за изучение английского вместе со Свинкой Пеппой!</p>
                 <button class="action-btn" style="margin-top: 30px;" onclick="closeDiploma()">⬅️ НАЗАД В МАГАЗИН</button>
+            </div>
+        </div>
+
+        <!-- Заготовка под Королевский Диплом (для последующего редактирования через ИИ) -->
+        <div class="diploma-card hidden" id="royalDiplomaBlock">
+            <div class="royal-diploma-view">
+                <span style="font-size: 6rem;">👑</span>
+                <h1 style="color: #ff6b9d; margin: 10px 0; font-size: 2.4rem;">КОРОЛЕВСКИЙ ДИПЛОМ</h1>
+                <p style="font-size: 1.3rem; color: #4a4a4a; font-weight: bold;">⭐ АБСОЛЮТНЫЙ БОГ АНГЛИЙСКОГО ⭐</p>
+                <p style="font-size: 1.1rem; color: #666; margin-top: 15px;">Выдан за сбор всех 35 достижений! Ты знаешь язык лучше всех в мире!</p>
+                <button class="action-btn" style="margin-top: 30px; background-color: #ff6b9d; border-color: #e89cb8;" onclick="closeRoyalDiploma()">⬅️ НАЗАД В ПРОФИЛЬ</button>
             </div>
         </div>
     </div>
@@ -278,10 +307,12 @@
                     <input type="file" id="galleryPhotoInput" accept="image/*" style="display:none;" onchange="uploadAvatarFromGallery()">
                 </div>
                 <div class="profile-meta">
-                    <h2 id="profileName">Ученик ...</h2>
+                    <h2 id="profileName">Ученик...</h2>
                     <!-- Контейнер для отображения выбранной Главной Ачивки -->
                     <div id="showcaseBadgeContainer"></div>
                     <button onclick="openNameModal()" style="display:block;">✏️ Изменить имя</button>
+                    <!-- Кнопка просмотра Королевского Диплома (скрыта, пока нет всех 35 ачивок) -->
+                    <button id="btnViewRoyalDiploma" class="hidden" onclick="openRoyalDiploma()" style="display:block; color:#ffd700; font-weight:bold; margin-top:8px;">👑 Посмотреть Королевский Диплом</button>
                 </div>
             </div>
             
@@ -297,7 +328,7 @@
             </div>
 
             <div class="achievements-title">🏆 Книга достижений (Кликни на открытую, чтобы закрепить в профиле!)</div>
-            <!-- Сюда JavaScript сам соберёт сетку из 30 ачивок -->
+            <!-- Сюда JavaScript сам соберёт сетку из 35 ачивок -->
             <div class="achievements-grid" id="achievementsGridBox"></div>
         </div>
     </div>
@@ -332,7 +363,7 @@
     </div>
 
     <script translate="no" class="notranslate">
-        // База уроков переведена строго на ЭМОДЗИ карточки!
+        // База уроков переведена строго на ЭМОДЗИ карточки с подписью на русском в скобках!
         const episodes = [
             { title: "Урок 1: Веселая прогулка 💦", videoUrl: "https://youtube.com", question: "Что Пеппа больше всего любит делать в грязных лужах?", correct: "Jump", options: [{ word: "Jump", trans: "Прыгать", img: "💦" }, { word: "Sleep", trans: "Спать", img: "😴" }, { word: "Fly", trans: "Летать", img: "✈️" }] },
             { title: "Урок 2: Любимые игрушки 🦖", videoUrl: "https://youtube.com", question: "Какое животное является любимой игрушкой маленького Джорджа?", correct: "Dinosaur", options: [{ word: "Cat", trans: "Кошка", img: "🐱" }, { word: "Dinosaur", trans: "Динозавр", img: "🦖" }, { word: "Dog", trans: "Собака", img: "🐶" }] },
@@ -406,8 +437,6 @@
         ];
         
         arcadeDictionary.push(...extraWords);
-
-        // Список всех 30 ачивок с фиксами и новыми наградами!
         const achConfig = [
             { id: "l1", icon: "💦", title: "Первая лужа", desc: "Пройди Урок 1 серий." },
             { id: "l2", icon: "🦖", title: "Друг Джорджа", desc: "Пройди Урок 2 серий." },
@@ -434,19 +463,24 @@
             { id: "p2", icon: "🎭", title: "Актер", desc: "Смени стандартный аватар на эмодзи." },
             { id: "p3", icon: "🦘", title: "Прыгун", desc: "Ошибись 2 раза подряд и получи подсказку." },
             { id: "p4", icon: "💖", title: "Фанат курса", desc: "Потрать монеты на 3 любых товара." },
-            // Новые 5 достижений!
             { id: "n1", icon: "🦕", title: "Семья динозавров", desc: "Пройди курс заново повторно." },
             { id: "n2", icon: "🍼", title: "Малыш Джордж", desc: "Ошибись 3 раза подряд (Пеппа подбодрит)." },
-            { id: "n3", icon: "🛒", title: "Шопоголик", desc: "Выкупи абсолютно все 6 товаров лавки." },
+            { id: "n3", icon: "🛒", title: "Шопоголик", desc: "Выкупи абсолютно все товары лавки." },
             { id: "n4", icon: "🎩", title: "Джентльмен", desc: "Поставь аватаром скрытого Папу Свина." },
-            { id: "n5", icon: "🍦", title: "Клубничное мороженое", desc: "Загрузи своё фото на аватарку из галереи." }
+            { id: "n5", icon: "🍦", title: "Клубничное мороженое", desc: "Загрузи своё фото на аватарку из галереи." },
+            // Новые 5 достижений под расширение магазина и дипломов!
+            { id: "x1", icon: "🎈", title: "Летим вверх!", desc: "Купи Розовый Воздушный Шарик." },
+            { id: "x2", icon: "🍧", title: "Сладкоежка", desc: "Купи Мега Мороженое в лавке." },
+            { id: "x3", icon: "🚜", title: "Весёлый фермер", desc: "Купи Трактор Дедушки Свина." },
+            { id: "x4", icon: "🏰", title: "Владелец замка", desc: "Купи Королевский Замок за монеты." },
+            { id: "x5", icon: "👑", title: "Персона Гранта", desc: "Открой абсолютно все 35 достижений игры!" }
         ];
         let currentLevel = parseInt(localStorage.getItem('peppa_project_level')) || 0;
         let globalScore = parseInt(localStorage.getItem('peppa_project_score')) || 0;
         let arcadeStreak = parseInt(localStorage.getItem('peppa_arcade_streak')) || 0;
         let arcadeWinsCount = parseInt(localStorage.getItem('peppa_arcade_wins_count')) || 0;
         let selectedWord = "", wrongAttempts = 0, isCorrectState = false, activeTabNum = 1, currentArcadeQuestion = null;
-        let totalWrongStreak = 0; // Для ачивки за 3 ошибки подряд
+        let totalWrongStreak = 0;
 
         function updateScoreDisplay() {
             document.getElementById('scoreDisplay').innerText = globalScore;
@@ -478,6 +512,7 @@
                 document.getElementById('statLabel').innerHTML = `🎁 Лавка наград`;
                 document.getElementById('shopMainBlock').classList.remove('hidden');
                 document.getElementById('diplomaBlock').classList.add('hidden');
+                document.getElementById('royalDiplomaBlock').classList.add('hidden');
                 updateShopButtons();
             } else {
                 document.getElementById('progContainer').style.visibility = 'hidden';
@@ -487,7 +522,6 @@
                 checkAchievements();
             }
         }
-
         function loadUserProfile() {
             const savedName = localStorage.getItem('peppa_user_name') || "Ученик Пеппы";
             const savedAvatar = localStorage.getItem('peppa_user_avatar') || "👦";
@@ -500,7 +534,23 @@
                 profileAvatarNode.innerHTML = savedAvatar;
             }
             
-            if(localStorage.getItem('peppa_shop_item_4') === 'true') { document.getElementById('profileName').classList.add('rainbow'); }
+            // Сбрасываем старые стили ника
+            document.getElementById('profileName').classList.remove('rainbow', 'royal-gold');
+            
+            // Если открыты ВСЕ 35 ачивок — ник становится золотым королевским!
+            let unlockedCount = 0;
+            achConfig.forEach(a => { if(localStorage.getItem('peppa_ach_unlocked_' + a.id) === 'true') unlockedCount++; });
+            
+            if(unlockedCount >= 35) {
+                document.getElementById('profileName').classList.add('royal-gold');
+                document.getElementById('btnViewRoyalDiploma').classList.remove('hidden');
+            } else {
+                document.getElementById('btnViewRoyalDiploma').classList.add('hidden');
+                if(localStorage.getItem('peppa_shop_item_4') === 'true') { 
+                    document.getElementById('profileName').classList.add('rainbow'); 
+                }
+            }
+            
             if(localStorage.getItem('peppa_shop_item_5') === 'true') { document.getElementById('secretAvatarItem').classList.remove('hidden'); }
             
             // Загрузка Главной Награды в шапку профиля
@@ -513,6 +563,7 @@
                 } else { badgeContainer.innerHTML = ''; }
             } else { badgeContainer.innerHTML = ''; }
         }
+
         function openNameModal() {
             document.getElementById('peppaNameInput').value = document.getElementById('profileName').innerText;
             document.getElementById('nameModalOverlay').classList.add('active');
@@ -522,7 +573,7 @@
             const newName = document.getElementById('peppaNameInput').value;
             if(newName && newName.trim().length > 0) {
                 localStorage.setItem('peppa_user_name', newName.trim());
-                localStorage.setItem('peppa_ach_p1', 'true');
+                localStorage.setItem('peppa_ach_p1_flag', 'true');
                 document.getElementById('nameModalOverlay').classList.remove('active');
                 loadUserProfile();
                 checkAchievements();
@@ -535,7 +586,7 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     localStorage.setItem('peppa_user_avatar', e.target.result);
-                    localStorage.setItem('peppa_ach_n5', 'true'); // Награда за фото
+                    localStorage.setItem('peppa_ach_n5_flag', 'true'); 
                     loadUserProfile();
                     checkAchievements();
                 };
@@ -545,13 +596,12 @@
 
         function setAvatar(emoji) {
             localStorage.setItem('peppa_user_avatar', emoji);
-            localStorage.setItem('peppa_ach_p2', 'true');
-            if(emoji === '🎅') { localStorage.setItem('peppa_ach_n4', 'true'); } // Награда за Папу Свина
+            localStorage.setItem('peppa_ach_p2_flag', 'true');
+            if(emoji === '🎅') { localStorage.setItem('peppa_ach_n4_flag', 'true'); } 
             loadUserProfile();
             checkAchievements();
         }
 
-        // Динамическая сборка 30 ачивок с возможностью кликнуть и закрепить награду
         function buildAchievementsDOM() {
             const container = document.getElementById('achievementsGridBox');
             if(!container) return;
@@ -574,7 +624,7 @@
                 
                 card.onclick = () => {
                     if(!isUnlocked) {
-                        return showPeppaModal("💡 Секрет", "Это достижение ещё закрыто. Выполни игровое задание, чтобы открыть его!", "ОК", false);
+                        return showPeppaModal("💡 Секрет", "Это достижение ещё закрыто. Выполни задание, чтобы открыть его!", "ОК", false);
                     }
                     if(localStorage.getItem('peppa_showcased_ach') === ach.id) {
                         localStorage.removeItem('peppa_showcased_ach');
@@ -635,11 +685,10 @@
                 card.className = 'word-card';
                 card.id = containerId + "-card-" + opt.word.replace(/\s+/g, '-'); 
                 
-                // В аркаде (showText == false) пишем слово на английском и в скобочках перевод!
-                const labelText = showText ? opt.word : `${opt.word} (${opt.trans})`;
+                // Исправлено: перевод в скобочках пишется ВСЕГДА — и в основном тесте, и в аркаде на слух!
+                const labelText = `${opt.word} (${opt.trans})`;
                 const engTextHtml = `<div class="english-word notranslate" translate="no">${labelText}</div>`;
                 
-                // Вместо картинок теперь всегда рендерится крупный, красивый, сочный эмодзи-смайлик!
                 card.innerHTML = `<span class="emoji-display">${opt.img}</span>${engTextHtml}`;
                 
                 card.onclick = () => {
@@ -661,7 +710,7 @@
             const correctAnswer = episodes[currentLevel].correct;
             if (selectedWord === correctAnswer) {
                 isCorrectState = true; globalScore += 10;
-                totalWrongStreak = 0; // Сброс стрика ошибок
+                totalWrongStreak = 0; 
                 localStorage.setItem('peppa_ach_unlocked_l' + (currentLevel + 1), 'true');
                 showPeppaModal("🎉 СУПЕР! 🎉", "Правильно! Ты получаешь ⭐ 10 монет!", "ДАЛЬШЕ ➡️", true);
             } else { totalWrongStreak++; handleWrongAnswer(correctAnswer, 'cardsContainer'); }
@@ -671,14 +720,14 @@
             if (!selectedWord) { return showPeppaModal("🐷 Хрю!", "Сначала выбери ответ!", "ОК", false); }
             if (selectedWord === currentArcadeQuestion.word) {
                 isCorrectState = true; globalScore += 5; arcadeStreak++; arcadeWinsCount++;
-                totalWrongStreak = 0; // Сброс стрика ошибок
+                totalWrongStreak = 0; 
                 localStorage.setItem('peppa_arcade_streak', arcadeStreak);
                 localStorage.setItem('peppa_arcade_wins_count', arcadeWinsCount);
-                localStorage.setItem('peppa_ach_unlocked_a1', 'true'); // Базовая ачивка за 1 угаданное слово
+                localStorage.setItem('peppa_ach_unlocked_a1', 'true'); 
                 showPeppaModal("🌟 ОТЛИЧНО! 🌟", "Верно! Получай ⭐ 5 звездных монет!", "ДАЛЬШЕ 🚀", true);
             } else { arcadeStreak = 0; totalWrongStreak++; localStorage.setItem('peppa_arcade_streak', arcadeStreak); handleWrongAnswer(currentArcadeQuestion.word, 'arcadeCardsContainer'); }
         }
-        /* Полностью переписанная фоновая проверка всей системы из 30 Ачивок! */
+        /* Фоновая автоматическая проверка всех 35 достижений с защитой от сброса! */
         function checkAchievements() {
             let newlyUnlockedName = "";
 
@@ -689,7 +738,7 @@
                 }
             }
 
-            // 1. Проверка Уроков серий
+            // 1. Проверка Уроков серий (Флаги теперь постоянные в профиле)
             if (localStorage.getItem('peppa_ach_unlocked_l1') === 'true') triggerUnlock('l1', "Первая лужа");
             if (localStorage.getItem('peppa_ach_unlocked_l2') === 'true') triggerUnlock('l2', "Друг Джорджа");
             if (localStorage.getItem('peppa_ach_unlocked_l3') === 'true') triggerUnlock('l3', "Лучшие друзья");
@@ -710,9 +759,9 @@
             if (arcadeStreak >= 10) triggerUnlock('a10', "Мастер Аркады");
             if (arcadeStreak >= 20) triggerUnlock('a20', "Бог Аудирования");
 
-            // 4. Проверка Магазина бонусов
+            // 4. Проверка Магазина бонусов (10 товаров)
             let shopItemsBought = 0;
-            for (let i = 1; i <= 6; i++) {
+            for (let i = 1; i <= 10; i++) {
                 if (localStorage.getItem('peppa_shop_item_' + i) === 'true') {
                     shopItemsBought++;
                     if (i === 1) triggerUnlock('b1', "Образованный");
@@ -721,39 +770,52 @@
                     if (i === 4) triggerUnlock('b4', "Яркая личность");
                     if (i === 5) triggerUnlock('b5', "Тайный Свин");
                     if (i === 6) triggerUnlock('b6', "Меломан Пеппы");
+                    if (i === 7) triggerUnlock('x1', "Летим вверх!");
+                    if (i === 8) triggerUnlock('x2', "Сладкоежка");
+                    if (i === 9) triggerUnlock('x3', "Весёлый фермер");
+                    if (i === 10) triggerUnlock('x4', "Владелец замка");
                 }
             }
 
             // 5. Активность в Личном кабинете
-            if (localStorage.getItem('peppa_ach_p1') === 'true') triggerUnlock('p1', "Личность");
-            if (localStorage.getItem('peppa_ach_p2') === 'true') triggerUnlock('p2', "Актер");
+            if (localStorage.getItem('peppa_ach_p1_flag') === 'true') triggerUnlock('p1', "Личность");
+            if (localStorage.getItem('peppa_ach_p2_flag') === 'true') triggerUnlock('p2', "Актер");
             if (localStorage.getItem('peppa_ach_p3') === 'true') triggerUnlock('p3', "Прыгун");
             if (shopItemsBought >= 3) triggerUnlock('p4', "Фанат курса");
 
-            // 6. Проверка Новых 5 ачивок
+            // 6. Проверка Дополнительных ачивок
             if (parseInt(localStorage.getItem('peppa_course_restarts')) >= 1) triggerUnlock('n1', "Семья динозавров");
             if (totalWrongStreak >= 3) triggerUnlock('n2', "Малыш Джордж");
-            if (shopItemsBought >= 6) triggerUnlock('n3', "Шопоголик");
-            if (localStorage.getItem('peppa_ach_n4') === 'true') triggerUnlock('n4', "Джентльмен");
-            if (localStorage.getItem('peppa_ach_n5') === 'true') triggerUnlock('n5', "Клубничное мороженое");
+            if (shopItemsBought >= 10) triggerUnlock('n3', "Шопоголик");
+            if (localStorage.getItem('peppa_ach_n4_flag') === 'true') triggerUnlock('n4', "Джентльмен");
+            if (localStorage.getItem('peppa_ach_n5_flag') === 'true') triggerUnlock('n5', "Клубничное мороженое");
 
-            // Если в этой итерации открылась новая ачивка, мгновенно выводим красивое окно!
+            // Проверяем, сколько всего открыто наград из 35 возможных
+            let totalUnlockedCount = 0;
+            achConfig.forEach(a => { if(localStorage.getItem('peppa_ach_unlocked_' + a.id) === 'true') totalUnlockedCount++; });
+
+            // 35-я финальная супер-ачивка за полный сбор коллекции!
+            if (totalUnlockedCount >= 34 && localStorage.getItem('peppa_ach_unlocked_x5') !== 'true') {
+                triggerUnlock('x5', "Персона Гранта");
+            }
+
+            // Если открылась новая ачивка, мгновенно выводим красивое окно!
             if (newlyUnlockedName !== "") {
                 showPeppaModal("🏆 АЧИВКА ОТКРЫТА! 🏆", `Поздравляем! Ты заработал новое достижение: "${newlyUnlockedName}"! Зайди в Профиль, чтобы проверить книжку наград.`, "УРА! 🎉", false);
-                if (activeTabNum === 4) { buildAchievementsDOM(); }
+                if (activeTabNum === 4) { loadUserProfile(); buildAchievementsDOM(); }
             }
         }
 
         function handleWrongAnswer(correctAnswer, containerId) {
             isCorrectState = false; wrongAttempts++;
             if (wrongAttempts >= 2) {
-                localStorage.setItem('peppa_ach_p3', 'true'); // Ставим флаг прыгуна
+                localStorage.setItem('peppa_ach_p3', 'true'); 
                 showPeppaModal("💡 ПОДСКАЗКА 💡", "Правильный ответ подсвечен жёлтым цветом.", "ПОНЯТНО", false);
                 const cardId = containerId + "-card-" + correctAnswer.replace(/\s+/g, '-'); 
                 const correctCard = document.getElementById(cardId);
                 if (correctCard) { correctCard.style.borderColor = "#ffeb3b"; correctCard.style.backgroundColor = "#fffde7"; correctCard.style.borderBottomColor = "#fdd835"; }
-            } else { showPeppaModal("❌ ОЙ-ОЙ! ❌", "Неправильно. Попробуй ещё раз!", "ПОВТОРИТЬ", false); }
-            checkAchievements(); // Проверяем стрик ошибок на "Малыш Джордж"
+            } else { showPeppaModal("❌ ОЙ-ОЙ! ❌", "Неправильно. Попробуй ещё раз!", "П ПОВТОРИТЬ", false); }
+            checkAchievements(); 
         }
 
         function showPeppaModal(title, text, btnText, isCorrect) { 
@@ -777,9 +839,9 @@
         }
 
         function updateShopButtons() {
-            for(let i = 1; i <= 6; i++) {
+            for(let i = 1; i <= 10; i++) {
                 const btn = document.getElementById('btnBuyItem' + i); if(!btn) continue;
-                const cost = i === 1 ? 100 : (i === 2 ? 250 : (i === 3 ? 50 : (i === 4 ? 70 : (i === 5 ? 150 : 200))));
+                const cost = i===1 ? 100 : (i===2 ? 250 : (i===3 ? 50 : (i===4 ? 70 : (i===5 ? 150 : (i===6 ? 200 : (i===7 ? 30 : (i===8 ? 60 : (i===9 ? 120 : 350))))))));
                 const isBought = localStorage.getItem('peppa_shop_item_' + i) === 'true';
                 if(isBought) { btn.innerText = "✨ ОТКРЫТО"; btn.disabled = true; } else { btn.disabled = globalScore < cost; }
             }
@@ -795,13 +857,14 @@
         }
 
         function closeDiploma() { document.getElementById('diplomaBlock').classList.add('hidden'); document.getElementById('shopMainBlock').classList.remove('hidden'); }
+        
+        function openRoyalDiploma() { document.getElementById('sec4').classList.add('hidden'); document.getElementById('sec3').classList.remove('hidden'); document.getElementById('shopMainBlock').classList.add('hidden'); document.getElementById('royalDiplomaBlock').classList.remove('hidden'); }
+        function closeRoyalDiploma() { document.getElementById('royalDiplomaBlock').classList.add('hidden'); document.getElementById('shopMainBlock').classList.remove('hidden'); switchTab(4); }
 
         function resetProgress() { 
             let restarts = parseInt(localStorage.getItem('peppa_course_restarts')) || 0;
             localStorage.setItem('peppa_course_restarts', restarts + 1);
             localStorage.removeItem('peppa_project_level'); 
-            // Очищаем старые флаги прохождения, чтобы запустить их по новой
-            for(let i=1; i<=5; i++) { localStorage.removeItem('peppa_ach_unlocked_l' + i); }
             currentLevel = 0; 
             document.getElementById('victoryScreen').classList.add('hidden'); 
             document.getElementById('sec1').classList.remove('hidden'); 

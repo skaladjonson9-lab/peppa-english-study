@@ -35,7 +35,6 @@
         .header-top { display: flex; justify-content: space-between; align-items: center; width: 100%; }
         .logo { font-size: 1.4rem; font-weight: bold; color: var(--primary-pink); text-shadow: 1px 1px 0 #fff; }
         
-        /* Вкладки как в Duolingo */
         .tabs-container { display: flex; gap: 15px; margin-top: 5px; }
         .tab-btn {
             background: none; border: none; font-family: inherit; font-size: 1.1rem;
@@ -104,7 +103,6 @@
         .hidden { display: none !important; }
         .win-screen { text-align: center; padding: 40px; }
 
-        /* Окно уведомлений */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(44, 62, 80, 0.6); backdrop-filter: blur(4px);
@@ -132,7 +130,6 @@
         }
         .modal-btn:active { transform: translateY(4px); border-bottom-width: 1px; }
 
-        /* Стили аркады мини-игры */
         .arcade-card {
             background: white; border: 3px solid var(--card-border);
             border-radius: 24px; padding: 30px; text-align: center;
@@ -161,7 +158,6 @@
         </div>
     </header>
 
-    <!-- ВКЛАДКА 1: Уроки по сериям -->
     <div class="main-layout" id="lessonsTabSection">
         <div class="video-card">
             <h2 id="lessonTitle">Загрузка урока...</h2>
@@ -177,7 +173,6 @@
         </div>
     </div>
 
-    <!-- ВКЛАДКА 2: Бесконечная мини-игра (Случайные слова) -->
     <div class="main-layout hidden" id="arcadeTabSection">
         <div class="arcade-card">
             <h2 style="color: #ff4081; margin: 0;">Peppa's Word Arcade 🎈</h2>
@@ -188,7 +183,6 @@
         </div>
     </div>
 
-    <!-- Экран победы (только для уроков) -->
     <div class="main-layout hidden" id="victoryScreen">
         <div class="quiz-card win-screen">
             <h2>🎉 КУРС УСПЕШНО ЗАВЕРШЕН! 🎉</h2>
@@ -198,13 +192,15 @@
         </div>
     </div>
 
-    <!-- Кастомные модалки -->
     <div class="modal-overlay" id="peppaModalOverlay">
         <div class="peppa-modal">
             <div class="modal-badge" id="modalBadge">🌟</div>
             <div class="modal-title" id="modalTitle">Умница!</div>
+            <div class="modal-text" id="modalText">Задание успешно выполнено.</div>
+            <button class="modal-btn" id="modalBtn" onclick="closeModal()">ДАЛЬШЕ 👉</button>
+        </div>
+    </div>
     <script>
-        // База серий
         const episodes = [
             {
                 title: "Серия 1: Muddy Puddles (Грязные лужи)",
@@ -263,7 +259,6 @@
             }
         ];
 
-        // Словарь для автономной бесконечной мини-игры
         const arcadeDictionary = [
             { word: "Apple", trans: "Яблоко", img: "https://icons8.com" },
             { word: "Sun", trans: "Солнце", img: "https://icons8.com" },
@@ -319,7 +314,9 @@
             }
             const currentData = episodes[currentLevel];
             wrongAttempts = 0;
-            document.getElementById('levelDisplay').innerText = currentLevel + 1;
+            if(document.getElementById('levelDisplay')) {
+                document.getElementById('levelDisplay').innerText = currentLevel + 1;
+            }
             updateScoreDisplay();
             document.getElementById('lessonTitle').innerText = currentData.title;
             document.getElementById('videoPlayer').src = currentData.videoUrl;

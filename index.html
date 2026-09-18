@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peppa English Tracker & Arcade</title>
+    <title>Peppa English Tracker, Arcade & Shop</title>
     <style>
         :root {
             --bg-color: #e2f1ff;
@@ -22,6 +22,11 @@
             user-select: none;
             background-image: radial-gradient(#ffffff 15%, transparent 15%);
             background-size: 30px 30px;
+        }
+        body.gold-theme {
+            --bg-color: #fff9e6;
+            --card-border: #ffeaa7;
+            background-image: radial-gradient(#ffd32a 10%, transparent 10%);
         }
         header {
             background-color: white;
@@ -58,9 +63,9 @@
             max-width: 900px; margin: 30px auto; padding: 0 20px;
             display: flex; flex-direction: column; gap: 25px;
         }
-        .video-card {
+        .video-card, .quiz-card, .arcade-card, .shop-card {
             background: white; border: 3px solid var(--card-border);
-            border-radius: 24px; padding: 20px;
+            border-radius: 24px; padding: 25px;
             box-shadow: 0 6px 0px var(--card-border);
         }
         .video-card h2 { margin: 0 0 10px 0; font-size: 1.4rem; color: #ff4081; }
@@ -71,11 +76,6 @@
         }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
         
-        .quiz-card {
-            background: white; border: 3px solid var(--card-border);
-            border-radius: 24px; padding: 25px;
-            box-shadow: 0 6px 0px var(--card-border);
-        }
         .question-text { font-size: 1.4rem; font-weight: bold; margin-bottom: 20px; text-align: center; }
         .cards-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -102,6 +102,23 @@
         .action-btn:active { transform: translateY(4px); border-bottom-width: 1px; }
         .hidden { display: none !important; }
         .win-screen { text-align: center; padding: 40px; }
+
+        .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 15px; }
+        .shop-item {
+            background: #fff; border: 3px solid #f0f0f0; border-bottom-width: 6px;
+            border-radius: 20px; padding: 20px; text-align: center; display: flex;
+            flex-direction: column; justify-content: space-between; align-items: center;
+        }
+        .shop-item img { width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px; }
+        .shop-item h3 { margin: 5px 0; font-size: 1.1rem; color: #3c3c3c; }
+        .shop-item p { margin: 0 0 15px 0; font-size: 0.85rem; color: #888; }
+        .buy-btn {
+            background-color: #1cb0f6; color: white; border: none;
+            border-bottom: 4px solid #1899d6; border-radius: 12px;
+            padding: 10px 20px; font-size: 0.95rem; font-weight: bold;
+            cursor: pointer; width: 100%; font-family: inherit;
+        }
+        .buy-btn:disabled { background-color: #ccc; border-bottom-color: #aaa; cursor: not-allowed; }
 
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -130,11 +147,7 @@
         }
         .modal-btn:active { transform: translateY(4px); border-bottom-width: 1px; }
 
-        .arcade-card {
-            background: white; border: 3px solid var(--card-border);
-            border-radius: 24px; padding: 30px; text-align: center;
-            box-shadow: 0 6px 0px var(--card-border);
-        }
+        .arcade-card { text-align: center; }
         .arcade-word { font-size: 2.5rem; font-weight: bold; color: #1cb0f6; margin: 15px 0; text-shadow: 1px 1px 0px #eee; }
 
         @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-10px); } }
@@ -143,18 +156,19 @@
 <body>
     <header>
         <div class="header-top">
-            <div class="logo">🐷 Peppa Study & Arcade</div>
+            <div class="logo">🐷 Peppa Study & Shop</div>
             <div class="progress-container" id="progContainer">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
             <div class="stats">
                 <div id="statLabel">🔥 Уровень: <span id="levelDisplay">1</span>/5</div>
-                <div>⭐ Очки: <span id="scoreDisplay">0</span></div>
+                <div>⭐ <span id="scoreDisplay">0</span></div>
             </div>
         </div>
         <div class="tabs-container">
             <button class="tab-btn active" id="tabLessons" onclick="switchTab('lessons')">📚 Уроки (Серии)</button>
             <button class="tab-btn" id="tabArcade" onclick="switchTab('arcade')">🎮 Мини-игра</button>
+            <button class="tab-btn" id="tabShop" onclick="switchTab('shop')">🎁 Магазин бонусов</button>
         </div>
     </header>
 
@@ -183,6 +197,34 @@
         </div>
     </div>
 
+    <div class="main-layout hidden" id="shopTabSection">
+        <div class="shop-card">
+            <h2 style="color: #ff4081; margin: 0; text-align: center;">Призовой Магазин Пеппы 🧸</h2>
+            <p style="color: #777; text-align: center; margin-bottom: 20px;">Меняй свои заработанные ⭐ Звездные монеты на крутые призы!</p>
+            
+            <div class="shop-grid">
+                <div class="shop-item">
+                    <span style="font-size: 3.5rem;">🏆</span>
+                    <h3>Золотой Диплом</h3>
+                    <p>Скачай и распечатай настоящий диплом от Пеппы!</p>
+                    <button class="buy-btn" id="btnBuyItem1" onclick="buyItem(1, 20)">⭐ 20 монет</button>
+                </div>
+                <div class="shop-item">
+                    <span style="font-size: 3.5rem;">👑</span>
+                    <h3>Золотая Тема</h3>
+                    <p>Преврати дизайн сайта в секретный золотой стиль!</p>
+                    <button class="buy-btn" id="btnBuyItem2" onclick="buyItem(2, 40)">⭐ 40 монет</button>
+                </div>
+                <div class="shop-item">
+                    <span style="font-size: 3.5rem;">🦖</span>
+                    <h3>Стикер Динозавра</h3>
+                    <p>Эксклюзивный цифровой стикер любимой игрушки Джорджа.</p>
+                    <button class="buy-btn" id="btnBuyItem3" onclick="buyItem(3, 10)">⭐ 10 монет</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="main-layout hidden" id="victoryScreen">
         <div class="quiz-card win-screen">
             <h2>🎉 КУРС УСПЕШНО ЗАВЕРШЕН! 🎉</h2>
@@ -203,7 +245,7 @@
     <script>
         const episodes = [
             {
-                title: "Серия 1: Muddy Puddles (Грязные лужи)",
+                title: "Урок 1: Веселая прогулка 💦",
                 videoUrl: "https://youtube.com",
                 question: "What does Peppa love to do in muddy puddles?",
                 correct: "Jump",
@@ -214,7 +256,7 @@
                 ]
             },
             {
-                title: "Серия 2: George's Dinosaur (Динозавр Джорджа)",
+                title: "Урок 2: Любимые игрушки 🦖",
                 videoUrl: "https://youtube.com",
                 question: "What is George's favorite toy?",
                 correct: "Dinosaur",
@@ -225,7 +267,7 @@
                 ]
             },
             {
-                title: "Серия 3: Best Friend (Лучший друг)",
+                title: "Урок 3: Встречаем гостей 🐑",
                 videoUrl: "https://youtube.com",
                 question: "Suzy Sheep is Peppa's best...",
                 correct: "Friend",
@@ -236,7 +278,7 @@
                 ]
             },
             {
-                title: "Серия 4: Polly Parrot (Попугай Полли)",
+                title: "Урок 4: Домашние питомцы 🦜",
                 videoUrl: "https://youtube.com",
                 question: "What kind of bird is Polly?",
                 correct: "Parrot",
@@ -247,7 +289,7 @@
                 ]
             },
             {
-                title: "Серия 5: Hide and Seek (Прятки)",
+                title: "Урок 5: Веселые игры 🙈",
                 videoUrl: "https://youtube.com",
                 question: "What game are Peppa and George playing?",
                 correct: "Hide and seek",
@@ -283,14 +325,17 @@
         function updateScoreDisplay() {
             document.getElementById('scoreDisplay').innerText = globalScore;
             localStorage.setItem('peppa_project_score', globalScore);
+            updateShopButtons();
         }
 
         function switchTab(tab) {
             activeTab = tab;
             document.getElementById('tabLessons').classList.remove('active');
             document.getElementById('tabArcade').classList.remove('active');
+            document.getElementById('tabShop').classList.remove('active');
             document.getElementById('lessonsTabSection').classList.add('hidden');
             document.getElementById('arcadeTabSection').classList.add('hidden');
+            document.getElementById('shopTabSection').classList.add('hidden');
             document.getElementById('victoryScreen').classList.add('hidden');
 
             if(tab === 'lessons') {
@@ -298,11 +343,16 @@
                 document.getElementById('progContainer').style.visibility = 'visible';
                 document.getElementById('statLabel').innerHTML = `🔥 Уровень: <span id="levelDisplay">${currentLevel + 1}</span>/5`;
                 initGame();
-            } else {
+            } else if (tab === 'arcade') {
                 document.getElementById('tabArcade').classList.add('active');
                 document.getElementById('progContainer').style.visibility = 'hidden';
                 document.getElementById('statLabel').innerHTML = `🎮 Игровая сессия`;
                 initArcadeLevel();
+            } else {
+                document.getElementById('tabShop').classList.add('active');
+                document.getElementById('progContainer').style.visibility = 'hidden';
+                document.getElementById('statLabel').innerHTML = `🎁 Лавка наград`;
+                updateShopButtons();
             }
         }
         function initGame() {
@@ -326,14 +376,10 @@
         }
 
         function initArcadeLevel() {
-            selectedWord = "";
-            wrongAttempts = 0;
-            updateScoreDisplay();
-            
+            selectedWord = ""; wrongAttempts = 0; updateScoreDisplay();
             const randomTarget = arcadeDictionary[Math.floor(Math.random() * arcadeDictionary.length)];
             currentArcadeQuestion = randomTarget;
             document.getElementById('arcadeTargetWord').innerText = randomTarget.word;
-
             let options = [randomTarget];
             while(options.length < 3) {
                 const rand = arcadeDictionary[Math.floor(Math.random() * arcadeDictionary.length)];
@@ -346,22 +392,15 @@
 
         function renderCards(optionsList, containerId) {
             const container = document.getElementById(containerId);
-            container.innerHTML = "";
-            selectedWord = "";
+            container.innerHTML = ""; selectedWord = "";
             optionsList.forEach(opt => {
                 const card = document.createElement('div');
                 card.className = 'word-card';
                 card.id = containerId + "-card-" + opt.word.replace(/\s+/g, '-'); 
-                card.innerHTML = `
-                    <img src="${opt.img}">
-                    <div class="english-word">${opt.word}</div>
-                    <div class="translation">${opt.trans}</div>
-                `;
+                card.innerHTML = `<img src="${opt.img}"><div class="english-word">${opt.word}</div><div class="translation">${opt.trans}</div>`;
                 card.onclick = () => {
                     document.querySelectorAll('#' + containerId + ' .word-card').forEach(c => c.classList.remove('selected'));
-                    card.classList.add('selected');
-                    selectedWord = opt.word;
-                    speakEnglish(opt.word);
+                    card.classList.add('selected'); selectedWord = opt.word; speakEnglish(opt.word);
                 };
                 container.appendChild(card);
             });
@@ -370,9 +409,7 @@
         function speakEnglish(text) {
             if ('speechSynthesis' in window) {
                 let ut = new SpeechSynthesisUtterance(text);
-                ut.lang = 'en-US';
-                window.speechSynthesis.cancel();
-                window.speechSynthesis.speak(ut);
+                ut.lang = 'en-US'; window.speechSynthesis.cancel(); window.speechSynthesis.speak(ut);
             }
         }
 
@@ -380,40 +417,27 @@
             if (!selectedWord) { return showPeppaModal("🐷 Хрю!", "Сначала выбери ответ!", "ОК", false); }
             const correctAnswer = episodes[currentLevel].correct;
             if (selectedWord === correctAnswer) {
-                isCorrectState = true;
-                globalScore += 10;
-                showPeppaModal("🎉 СУПЕР! 🎉", "Ты ответил правильно и получаешь 10 очков!", "ИДТИ ДАЛЬШЕ ➡️", true);
-            } else {
-                handleWrongAnswer(correctAnswer, 'cardsContainer');
-            }
+                isCorrectState = true; globalScore += 10;
+                showPeppaModal("🎉 СУПЕР! 🎉", "Правильно! Ты получаешь ⭐ 10 звездных монет!", "ИДТИ ДАЛЬШЕ ➡️", true);
+            } else { handleWrongAnswer(correctAnswer, 'cardsContainer'); }
         }
 
         function checkArcadeAnswer() {
             if (!selectedWord) { return showPeppaModal("🐷 Хрю!", "Сначала выбери ответ!", "ОК", false); }
             if (selectedWord === currentArcadeQuestion.word) {
-                isCorrectState = true;
-                globalScore += 5;
-                showPeppaModal("🌟 ОТЛИЧНО! 🌟", "Правильно! +5 очков в твою копилку!", "СЛЕДУЮЩЕЕ СЛОВО 🚀", true);
-            } else {
-                handleWrongAnswer(currentArcadeQuestion.word, 'arcadeCardsContainer');
-            }
+                isCorrectState = true; globalScore += 5;
+                showPeppaModal("🌟 ОТЛИЧНО! 🌟", "Верно! Получай ⭐ 5 звездных монет!", "ДАЛЬШЕ 🚀", true);
+            } else { handleWrongAnswer(currentArcadeQuestion.word, 'arcadeCardsContainer'); }
         }
 
         function handleWrongAnswer(correctAnswer, containerId) {
-            isCorrectState = false;
-            wrongAttempts++;
+            isCorrectState = false; wrongAttempts++;
             if (wrongAttempts >= 2) {
-                showPeppaModal("💡 ПОДСКАЗКА 💡", "Правильная карточка подсвечена жёлтым цветом.", "ПОНЯТНО", false);
+                showPeppaModal("💡 ПОДСКАЗКА 💡", "Правильный ответ подсвечен жёлтым цветом.", "ПОНЯТНО", false);
                 const cardId = containerId + "-card-" + correctAnswer.replace(/\s+/g, '-');
                 const correctCard = document.getElementById(cardId);
-                if (correctCard) {
-                    correctCard.style.borderColor = "#ffeb3b";
-                    correctCard.style.backgroundColor = "#fffde7";
-                    correctCard.style.borderBottomColor = "#fdd835";
-                }
-            } else {
-                showPeppaModal("❌ ОЙ-ОЙ! ❌", "Неправильно. Попробуй ещё раз!", "ПОВТОРИТЬ", false);
-            }
+                if (correctCard) { correctCard.style.borderColor = "#ffeb3b"; correctCard.style.backgroundColor = "#fffde7"; correctCard.style.borderBottomColor = "#fdd835"; }
+            } else { showPeppaModal("❌ ОЙ-ОЙ! ❌", "Неправильно. Попробуй ещё раз!", "ПОВТОРИТЬ", false); }
         }
 
         function showPeppaModal(title, text, btnText, isCorrect) {
@@ -429,24 +453,51 @@
             if (isCorrectState) {
                 isCorrectState = false;
                 if(activeTab === 'lessons') {
-                    currentLevel++;
-                    localStorage.setItem('peppa_project_level', currentLevel);
-                    initGame();
+                    currentLevel++; localStorage.setItem('peppa_project_level', currentLevel); initGame();
+                } else { initArcadeLevel(); }
+            }
+        }
+
+        function updateShopButtons() {
+            for(let i = 1; i <= 3; i++) {
+                const btn = document.getElementById('btnBuyItem' + i);
+                if(!btn) continue;
+                const cost = i === 1 ? 20 : (i === 2 ? 40 : 10);
+                const isBought = localStorage.getItem('peppa_shop_item_' + i) === 'true';
+                if(isBought) {
+                    btn.innerText = "✨ ОТКРЫТО"; btn.disabled = true;
                 } else {
-                    initArcadeLevel();
+                    btn.disabled = globalScore < cost;
+                }
+            }
+        }
+
+        function buyItem(itemId, cost) {
+            if(globalScore >= cost) {
+                globalScore -= cost;
+                localStorage.setItem('peppa_shop_item_' + itemId, 'true');
+                updateScoreDisplay();
+                if(itemId === 2) {
+                    document.body.classList.add('gold-theme');
+                    showPeppaModal("👑 ЗОЛОТАЯ ТЕМА 👑", "Дизайн успешно куплен!", "КРУТО!", false);
+                } else if(itemId === 1) {
+                    window.open('https://icons8.com', '_blank');
+                    showPeppaModal("🏆 ДИПЛОМ КУПЛЕН", "Твой диплом открылся в новой вкладке. Сохрани его!", "УРА!", false);
+                } else {
+                    showPeppaModal("🦖 СТИКЕР ОТКРЫТ", "Ты успешно купил наклейку Динозавра!", "СУПЕР!", false);
                 }
             }
         }
 
         function resetProgress() {
             localStorage.removeItem('peppa_project_level');
-            localStorage.removeItem('peppa_project_score');
-            currentLevel = 0; globalScore = 0;
+            currentLevel = 0;
             document.getElementById('victoryScreen').classList.add('hidden');
             document.getElementById('lessonsTabSection').classList.remove('hidden');
             switchTab('lessons');
         }
 
+        if(localStorage.getItem('peppa_shop_item_2') === 'true') { document.body.classList.add('gold-theme'); }
         initGame();
     </script>
 </body>

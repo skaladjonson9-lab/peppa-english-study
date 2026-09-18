@@ -119,7 +119,6 @@
             cursor: pointer; width: 100%; font-family: inherit;
         }
         .buy-btn:disabled { background-color: #e0e0e0; border-bottom-color: #cccccc; color: #b5b5b5; cursor: not-allowed; }
-
         .audio-repeat-btn {
             background-color: #ff94b8; color: white; border: none;
             border-bottom: 5px solid #e89cb8; border-radius: 50%;
@@ -128,7 +127,9 @@
             box-shadow: 0 6px 0px #ffd2e3; transition: all 0.1s;
         }
         .audio-repeat-btn:active { transform: translateY(4px); box-shadow: 0 2px 0px #ffd2e3; border-bottom-width: 1px; }
+
         .diploma-view { border: 8px double #ffd700; border-radius: 24px; padding: 35px 15px; background: #fffdf0; max-width: 450px; margin: 0 auto; text-align: center; }
+
         .profile-header { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; border-bottom: 2px solid #f5e1eb; padding-bottom: 15px; }
         .avatar-container { position: relative; width: 95px; height: 90px; }
         .avatar-display { font-size: 4.5rem; width: 100%; height: 100%; background: #fff0f5; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 3px solid var(--primary-pink); overflow: hidden; }
@@ -139,7 +140,6 @@
         
         .profile-meta { text-align: left; }
         .profile-meta h2 { margin: 0; font-size: 1.5rem; color: #4a4a4a; }
-        
         .profile-meta h2.rainbow {
             background: linear-gradient(to right, #ff7597, #ffba53, #9cdb58, #50c4ff, #b675ff, #ff7597);
             background-size: 200% auto;
@@ -184,7 +184,7 @@
 <body>
     <header translate="no" class="notranslate">
         <div class="header-top">
-            <div class="logo">🐷 Peppa Study & Arcade</div>
+            <div class="logo">🐷 Peppa Study</div>
             <div class="progress-container" id="progContainer">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
@@ -294,7 +294,7 @@
                 <div class="ach-item" id="ach-a10"><div class="ach-icon">🎰</div><div class="ach-info"><h4>Мастер Аркады</h4><p id="t-ach-a10">Дай 10 верных ответов подряд.</p></div></div>
                 <div class="ach-item" id="ach-a20"><div class="ach-icon">🧙‍♂️</div><div class="ach-info"><h4>Бог Аудирования</h4><p id="t-ach-a20">Дай 20 верных ответов подряд.</p></div></div>
                 <div class="ach-item" id="ach-b1"><div class="ach-icon">📜</div><div class="ach-info"><h4>Образованный</h4><p id="t-ach-b1">Купи Золотой Диплом.</p></div></div>
-                <div class="ach-item" id="ach-b2"><div class="ach-icon">✨</div><div class="ach-info"><h4>Стильный стиль</h4><p id="t-ach-b2">Купи Золотую тему сайта.</p></div></div>
+                <div class="ach-item" id="ach-b2"><div class="ach-icon">✨</div><div class="ach-info"><h4>Стильный стиль</h4><p id="t-ach-b2">Купи Золотая тема.</p></div></div>
                 <div class="ach-item" id="ach-b3"><div class="ach-icon">🦖</div><div class="ach-info"><h4>Дино-коллекция</h4><p id="t-ach-b3">Купи стикер Динозаврика.</p></div></div>
                 <div class="ach-item" id="ach-b4"><div class="ach-icon">🌈</div><div class="ach-info"><h4>Яркая личность</h4><p id="t-ach-b4">Купи Радужный ник.</p></div></div>
                 <div class="ach-item" id="ach-b5"><div class="ach-icon">🎅</div><div class="ach-info"><h4>Тайный Свин</h4><p id="t-ach-b5">Купи секретный костюм.</p></div></div>
@@ -413,12 +413,7 @@
         let globalScore = parseInt(localStorage.getItem('peppa_project_score')) || 0;
         let arcadeStreak = parseInt(localStorage.getItem('peppa_arcade_streak')) || 0;
         let arcadeWinsCount = parseInt(localStorage.getItem('peppa_arcade_wins_count')) || 0;
-        let selectedWord = "";
-        let wrongAttempts = 0;
-        let isCorrectState = false;
-        let activeTabNum = 1;
-        let currentArcadeQuestion = null;
-
+        let selectedWord = "", wrongAttempts = 0, isCorrectState = false, activeTabNum = 1, currentArcadeQuestion = null;
         function updateScoreDisplay() {
             document.getElementById('scoreDisplay').innerText = globalScore;
             localStorage.setItem('peppa_project_score', globalScore);
@@ -509,6 +504,84 @@
             localStorage.setItem('peppa_ach_p2', 'true');
             loadUserProfile();
             checkAchievements();
+        }
+        function initGame() {
+            if (currentLevel >= episodes.length) {
+                document.getElementById('sec1').classList.add('hidden');
+                document.getElementById('victoryScreen').classList.remove('hidden');
+                document.getElementById('progressBar').style.width = "100%";
+                return;
+            }
+            const currentData = episodes[currentLevel];
+            wrongAttempts = 0;
+            if(document.getElementById('levelDisplay')) { document.getElementById('levelDisplay').innerText = currentLevel + 1; }
+            updateScoreDisplay();
+            document.getElementById('lessonTitle').innerText = currentData.title;
+            document.getElementById('videoPlayer').src = currentData.videoUrl;
+            document.getElementById('questionText').innerText = currentData.question;
+            document.getElementById('progressBar').style.width = (currentLevel / episodes.length) * 100 + "%";
+            renderCards(currentData.options, 'cardsContainer', true);
+        }
+
+        function initArcadeLevel() {
+            selectedWord = ""; wrongAttempts = 0; updateScoreDisplay();
+            const randomTarget = arcadeDictionary[Math.floor(Math.random() * arcadeDictionary.length)];
+            currentArcadeQuestion = randomTarget;
+            let options = [randomTarget];
+            while(options.length < 3) {
+                const rand = arcadeDictionary[Math.floor(Math.random() * arcadeDictionary.length)];
+                if(!options.find(o => o.word === rand.word)) { options.push(rand); }
+            }
+            options.sort(() => Math.random() - 0.5);
+            renderCards(options, 'arcadeCardsContainer', false); // false убирает только английское слово с экрана, оставляя варианты ответов (картинку и русский перевод)!
+            speakEnglish(randomTarget.word);
+        }
+
+        function repeatArcadeAudio() { if(currentArcadeQuestion) { speakEnglish(currentArcadeQuestion.word); } }
+
+        function renderCards(optionsList, containerId, showText) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = ""; selectedWord = "";
+            optionsList.forEach(opt => {
+                const card = document.createElement('div');
+                card.className = 'word-card';
+                card.id = containerId + "-card-" + opt.word.replace(/\s+/g, '-'); 
+                
+                // Исправлено: showText регулирует отображение английского слова, но картинка и русский перевод генерируются ВСЕГДА!
+                const engTextHtml = showText ? `<div class="english-word notranslate" translate="no">${opt.word}</div>` : '';
+                card.innerHTML = `<img src="${opt.img}">${engTextHtml}<div class="translation">${opt.trans}</div>`;
+                
+                card.onclick = () => {
+                    document.querySelectorAll('#' + containerId + ' .word-card').forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected'); selectedWord = opt.word; 
+                };
+                container.appendChild(card);
+            });
+        }
+
+        function speakEnglish(text) {
+            if ('speechSynthesis' in window) {
+                let ut = new SpeechSynthesisUtterance(text); ut.lang = 'en-US'; window.speechSynthesis.cancel(); window.speechSynthesis.speak(ut);
+            }
+        }
+
+        function checkAnswer() {
+            if (!selectedWord) { return showPeppaModal("🐷 Хрю!", "Сначала выбери ответ!", "ОК", false); }
+            const correctAnswer = episodes[currentLevel].correct;
+            if (selectedWord === correctAnswer) {
+                isCorrectState = true; globalScore += 10;
+                showPeppaModal("🎉 СУПЕР! 🎉", "Правильно! Ты получаешь ⭐ 10 монет!", "ИДТИ ДАЛЬШЕ ➡️", true);
+            } else { handleWrongAnswer(correctAnswer, 'cardsContainer'); }
+        }
+
+        function checkArcadeAnswer() {
+            if (!selectedWord) { return showPeppaModal("🐷 Хрю!", "Сначала выбери ответ!", "ОК", false); }
+            if (selectedWord === currentArcadeQuestion.word) {
+                isCorrectState = true; globalScore += 5; arcadeStreak++; arcadeWinsCount++;
+                localStorage.setItem('peppa_arcade_streak', arcadeStreak);
+                localStorage.setItem('peppa_arcade_wins_count', arcadeWinsCount);
+                showPeppaModal("🌟 ОТЛИЧНО! 🌟", "Верно! Получай ⭐ 5 звездных монет!", "ДАЛЬШЕ 🚀", true);
+            } else { arcadeStreak = 0; localStorage.setItem('peppa_arcade_streak', arcadeStreak); handleWrongAnswer(currentArcadeQuestion.word, 'arcadeCardsContainer'); }
         }
         function checkAchievements() {
             if(currentLevel >= 1) unlockAch('l1', 'Успешно! Ты прошёл Урок 1.');

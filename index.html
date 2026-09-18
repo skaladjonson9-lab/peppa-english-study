@@ -166,14 +166,16 @@
                 <div>⭐ <span id="scoreDisplay">0</span></div>
             </div>
         </div>
+        <!-- Вкладки теперь переключают строго цифры 1, 2, 3 -->
         <div class="tabs-container">
-            <button class="tab-btn active" id="tabLessons" onclick="switchTab('lessons')">📚 Уроки (Серии)</button>
-            <button class="tab-btn" id="tabArcade" onclick="switchTab('arcade')">🎮 Мини-игра</button>
-            <button class="tab-btn" id="tabShop" onclick="switchTab('shop')">🎁 Магазин бонусов</button>
+            <button class="tab-btn active" id="tab1" onclick="switchTab(1)">📚 Уроки (Серии)</button>
+            <button class="tab-btn" id="tab2" onclick="switchTab(2)">🎮 Мини-игра</button>
+            <button class="tab-btn" id="tab3" onclick="switchTab(3)">🎁 Магазин бонусов</button>
         </div>
     </header>
 
-    <div class="main-layout" id="lessonsTabSection">
+    <!-- Разделы сайта теперь привязаны к цифровым ID "sec1", "sec2", "sec3" -->
+    <div class="main-layout" id="sec1">
         <div class="video-card">
             <h2 id="lessonTitle">Загрузка урока...</h2>
             <p id="lessonDesc">Посмотри отрывок серии и выполни задание ниже!</p>
@@ -188,7 +190,7 @@
         </div>
     </div>
 
-    <div class="main-layout hidden" id="arcadeTabSection">
+    <div class="main-layout hidden" id="sec2">
         <div class="arcade-card">
             <h2 style="color: #ff4081; margin: 0;">Peppa's Word Arcade 🎈</h2>
             <p style="color: #777; margin-top: 5px;">Послушай слово и выбери правильный перевод карточки!</p>
@@ -198,7 +200,7 @@
         </div>
     </div>
 
-    <div class="main-layout hidden" id="shopTabSection">
+    <div class="main-layout hidden" id="sec3">
         <div class="shop-card">
             <h2 style="color: #ff4081; margin: 0; text-align: center;">Призовой Магазин Пеппы 🧸</h2>
             <p style="color: #777; text-align: center; margin-bottom: 20px;">Меняй свои заработанные ⭐ Звездные монеты на крутые призы!</p>
@@ -244,7 +246,6 @@
         </div>
     </div>
     <script translate="no" class="notranslate">
-        // Вопросы теперь полностью на русском языке!
         const episodes = [
             {
                 title: "Урок 1: Веселая прогулка 💦",
@@ -321,7 +322,7 @@
         let selectedWord = "";
         let wrongAttempts = 0;
         let isCorrectState = false;
-        let activeTab = 'lessons';
+        let activeTabNum = 1;
         let currentArcadeQuestion = null;
 
         function updateScoreDisplay() {
@@ -330,28 +331,26 @@
             updateShopButtons();
         }
 
-        function switchTab(tab) {
-            activeTab = tab;
-            document.getElementById('tabLessons').classList.remove('active');
-            document.getElementById('tabArcade').classList.remove('active');
-            document.getElementById('tabShop').classList.remove('active');
-            document.getElementById('lessonsTabSection').classList.add('hidden');
-            document.getElementById('arcadeTabSection').classList.add('hidden');
-            document.getElementById('shopTabSection').classList.add('hidden');
+        // Новая логика на цифрах 1, 2, 3 — автопереводчик бессилен!
+        function switchTab(num) {
+            activeTabNum = num;
+            for(let i = 1; i <= 3; i++) {
+                document.getElementById('tab' + i).classList.remove('active');
+                document.getElementById('sec' + i).classList.add('hidden');
+            }
             document.getElementById('victoryScreen').classList.add('hidden');
+            document.getElementById('tab' + num).classList.add('active');
+            document.getElementById('sec' + num).classList.remove('hidden');
 
-            if(tab === 'lessons') {
-                document.getElementById('tabLessons').classList.add('active');
+            if(num === 1) {
                 document.getElementById('progContainer').style.visibility = 'visible';
                 document.getElementById('statLabel').innerHTML = `🔥 Уровень: <span id="levelDisplay">${currentLevel + 1}</span>/5`;
                 initGame();
-            } else if (tab === 'arcade') {
-                document.getElementById('tabArcade').classList.add('active');
+            } else if (num === 2) {
                 document.getElementById('progContainer').style.visibility = 'hidden';
                 document.getElementById('statLabel').innerHTML = `🎮 Игровая сессия`;
                 initArcadeLevel();
             } else {
-                document.getElementById('tabShop').classList.add('active');
                 document.getElementById('progContainer').style.visibility = 'hidden';
                 document.getElementById('statLabel').innerHTML = `🎁 Лавка наград`;
                 updateShopButtons();
@@ -359,7 +358,7 @@
         }
         function initGame() {
             if (currentLevel >= episodes.length) {
-                document.getElementById('lessonsTabSection').classList.add('hidden');
+                document.getElementById('sec1').classList.add('hidden');
                 document.getElementById('victoryScreen').classList.remove('hidden');
                 document.getElementById('progressBar').style.width = "100%";
                 return;
@@ -454,7 +453,7 @@
             document.getElementById('peppaModalOverlay').classList.remove('active');
             if (isCorrectState) {
                 isCorrectState = false;
-                if(activeTab === 'lessons') {
+                if(activeTabNum === 1) {
                     currentLevel++; localStorage.setItem('peppa_project_level', currentLevel); initGame();
                 } else { initArcadeLevel(); }
             }
@@ -495,8 +494,8 @@
             localStorage.removeItem('peppa_project_level');
             currentLevel = 0;
             document.getElementById('victoryScreen').classList.add('hidden');
-            document.getElementById('lessonsTabSection').classList.remove('hidden');
-            switchTab('lessons');
+            document.getElementById('sec1').classList.remove('hidden');
+            switchTab(1);
         }
 
         if(localStorage.getItem('peppa_shop_item_2') === 'true') { document.body.classList.add('gold-theme'); }

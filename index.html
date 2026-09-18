@@ -244,11 +244,12 @@
         </div>
     </div>
     <script translate="no" class="notranslate">
+        // Вопросы теперь полностью на русском языке!
         const episodes = [
             {
                 title: "Урок 1: Веселая прогулка 💦",
                 videoUrl: "https://youtube.com",
-                question: "What does Peppa love to do in muddy puddles?",
+                question: "Что Пеппа больше всего любит делать в грязных лужах?",
                 correct: "Jump",
                 options: [
                     { word: "Jump", trans: "Прыгать", img: "https://icons8.com" },
@@ -259,7 +260,7 @@
             {
                 title: "Урок 2: Любимые игрушки 🦖",
                 videoUrl: "https://youtube.com",
-                question: "What is George's favorite toy?",
+                question: "Какое животное является любимой игрушкой маленького Джорджа?",
                 correct: "Dinosaur",
                 options: [
                     { word: "Cat", trans: "Кошка", img: "https://icons8.com" },
@@ -270,7 +271,7 @@
             {
                 title: "Урок 3: Встречаем гостей 🐑",
                 videoUrl: "https://youtube.com",
-                question: "Suzy Sheep is Peppa's best...",
+                question: "Кем овечка Сьюзи приходится Свинке Пеппе?",
                 correct: "Friend",
                 options: [
                     { word: "Friend", trans: "Друг", img: "https://icons8.com" },
@@ -281,7 +282,7 @@
             {
                 title: "Урок 4: Домашние питомцы 🦜",
                 videoUrl: "https://youtube.com",
-                question: "What kind of bird is Polly?",
+                question: "Какая птичка живет у дедушки и бабушки и умеет повторять слова?",
                 correct: "Parrot",
                 options: [
                     { word: "Duck", trans: "Утка", img: "https://icons8.com" },
@@ -292,7 +293,7 @@
             {
                 title: "Урок 5: Веселые игры 🙈",
                 videoUrl: "https://youtube.com",
-                question: "What game are Peppa and George playing?",
+                question: "В какую популярную детскую игру играют Пеппа и Джордж?",
                 correct: "Hide and seek",
                 options: [
                     { word: "Football", trans: "Футбол", img: "https://icons8.com" },
@@ -490,7 +491,6 @@
             }
         }
 
-        // Фикс бага бесконечных очков: Сбрасывается ТОЛЬКО уровень серий, а монеты и магазин больше не трогаются и не накручиваются!
         function resetProgress() {
             localStorage.removeItem('peppa_project_level');
             currentLevel = 0;

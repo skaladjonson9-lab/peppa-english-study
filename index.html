@@ -41,10 +41,10 @@
         .header-top { display: flex; justify-content: space-between; align-items: center; width: 100%; }
         .logo { font-size: 1.4rem; font-weight: bold; color: var(--primary-pink); text-shadow: 1px 1px 0 #fff; }
         
-        .tabs-container { display: flex; gap: 15px; margin-top: 5px; }
+        .tabs-container { display: flex; gap: 10px; margin-top: 5px; flex-wrap: wrap; }
         .tab-btn {
-            background: none; border: none; font-family: inherit; font-size: 1.1rem;
-            font-weight: bold; color: #aaa; cursor: pointer; padding: 8px 16px;
+            background: none; border: none; font-family: inherit; font-size: 1rem;
+            font-weight: bold; color: #aaa; cursor: pointer; padding: 8px 12px;
             border-bottom: 4px solid transparent; transition: all 0.2s;
         }
         .tab-btn.active { color: var(--primary-pink); border-bottom-color: var(--primary-pink); }
@@ -64,7 +64,7 @@
             max-width: 900px; margin: 30px auto; padding: 0 20px;
             display: flex; flex-direction: column; gap: 25px;
         }
-        .video-card, .quiz-card, .arcade-card, .shop-card {
+        .video-card, .quiz-card, .arcade-card, .shop-card, .diploma-card, .profile-card {
             background: white; border: 3px solid var(--card-border);
             border-radius: 24px; padding: 25px;
             box-shadow: 0 6px 0px var(--card-border);
@@ -91,8 +91,6 @@
         .word-card:active { transform: translateY(3px); border-bottom-width: 3px; }
         .word-card.selected { border-color: #1cb0f6; background-color: #ddf4ff; border-bottom-color: #1cb0f6; }
         .word-card img { width: 100%; height: 100px; object-fit: contain; margin-bottom: 10px; }
-        .word-card .english-word { font-size: 1.3rem; font-weight: bold; color: #1cb0f6; }
-        .word-card .translation { font-size: 0.9rem; color: #777; margin-top: 4px; }
         
         .action-btn {
             background-color: var(--duo-green); color: white; border: none;
@@ -110,9 +108,6 @@
             border-radius: 20px; padding: 20px; text-align: center; display: flex;
             flex-direction: column; justify-content: space-between; align-items: center;
         }
-        .shop-item img { width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px; }
-        .shop-item h3 { margin: 5px 0; font-size: 1.1rem; color: #3c3c3c; }
-        .shop-item p { margin: 0 0 15px 0; font-size: 0.85rem; color: #888; }
         .buy-btn {
             background-color: #1cb0f6; color: white; border: none;
             border-bottom: 4px solid #1899d6; border-radius: 12px;
@@ -120,6 +115,36 @@
             cursor: pointer; width: 100%; font-family: inherit;
         }
         .buy-btn:disabled { background-color: #ccc; border-bottom-color: #aaa; cursor: not-allowed; }
+
+        .audio-repeat-btn {
+            background-color: #ff4081; color: white; border: none;
+            border-bottom: 5px solid #d81b60; border-radius: 50%;
+            width: 70px; height: 70px; font-size: 1.8rem; cursor: pointer;
+            margin: 15px auto; display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15); transition: all 0.1s;
+        }
+        .audio-repeat-btn:active { transform: translateY(4px); border-bottom-width: 1px; }
+
+        .diploma-view {
+            border: 8px double #ffd700; border-radius: 20px; padding: 40px 20px;
+            background: #fffdf0; max-width: 500px; margin: 0 auto; text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .avatar-box { font-size: 4.5rem; margin-bottom: 10px; animation: bounce 1.5s infinite alternate; }
+        .achievements-title { font-size: 1.3rem; font-weight: bold; margin: 25px 0 15px 0; text-align: left; color: #ff4081; border-bottom: 2px solid #f0f0f0; padding-bottom: 5px; }
+        .achievements-grid { display: flex; flex-direction: column; gap: 15px; }
+        .ach-item {
+            display: flex; align-items: center; gap: 15px; background: #fafafa;
+            border: 2px solid #eee; border-radius: 16px; padding: 15px; text-align: left;
+            transition: all 0.3s;
+        }
+        .ach-item.unlocked { background: #fffdf0; border-color: #ffd700; box-shadow: 0 4px 0px #ffe875; }
+        .ach-icon { font-size: 2.5rem; filter: grayscale(100%); opacity: 0.4; transition: all 0.3s; }
+        .ach-item.unlocked .ach-icon { filter: grayscale(0%); opacity: 1; }
+        .ach-info h4 { margin: 0 0 4px 0; font-size: 1.1rem; color: #3c3c3c; }
+        .ach-info p { margin: 0; font-size: 0.85rem; color: #888; }
+        .ach-item.unlocked .ach-info p { color: #cc8e00; font-weight: bold; }
 
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -148,16 +173,13 @@
         }
         .modal-btn:active { transform: translateY(4px); border-bottom-width: 1px; }
 
-        .arcade-card { text-align: center; }
-        .arcade-word { font-size: 2.5rem; font-weight: bold; color: #1cb0f6; margin: 15px 0; text-shadow: 1px 1px 0px #eee; }
-
         @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-10px); } }
     </style>
 </head>
 <body>
     <header translate="no" class="notranslate">
         <div class="header-top">
-            <div class="logo">🐷 Peppa Study & Shop</div>
+            <div class="logo">🐷 Peppa Study & Profile</div>
             <div class="progress-container" id="progContainer">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
@@ -166,15 +188,14 @@
                 <div>⭐ <span id="scoreDisplay">0</span></div>
             </div>
         </div>
-        <!-- Вкладки теперь переключают строго цифры 1, 2, 3 -->
         <div class="tabs-container">
             <button class="tab-btn active" id="tab1" onclick="switchTab(1)">📚 Уроки (Серии)</button>
             <button class="tab-btn" id="tab2" onclick="switchTab(2)">🎮 Мини-игра</button>
             <button class="tab-btn" id="tab3" onclick="switchTab(3)">🎁 Магазин бонусов</button>
+            <button class="tab-btn" id="tab4" onclick="switchTab(4)">👦 Мой Профиль</button>
         </div>
     </header>
 
-    <!-- Разделы сайта теперь привязаны к цифровым ID "sec1", "sec2", "sec3" -->
     <div class="main-layout" id="sec1">
         <div class="video-card">
             <h2 id="lessonTitle">Загрузка урока...</h2>
@@ -192,38 +213,62 @@
 
     <div class="main-layout hidden" id="sec2">
         <div class="arcade-card">
-            <h2 style="color: #ff4081; margin: 0;">Peppa's Word Arcade 🎈</h2>
-            <p style="color: #777; margin-top: 5px;">Послушай слово и выбери правильный перевод карточки!</p>
-            <div class="arcade-word notranslate" translate="no" id="arcadeTargetWord">Apple</div>
+            <h2 style="color: #ff4081; margin: 0;">Peppa's Audio Arcade 🎧</h2>
+            <p style="color: #777; margin-top: 5px;">Нажми на кнопку, послушай английское слово и выбери верную картинку!</p>
+            <button class="audio-repeat-btn" onclick="repeatArcadeAudio()">🔊</button>
             <div class="cards-grid" id="arcadeCardsContainer"></div>
             <button class="action-btn" onclick="checkArcadeAnswer()">ПРОВЕРИТЬ</button>
         </div>
     </div>
 
     <div class="main-layout hidden" id="sec3">
-        <div class="shop-card">
+        <div class="shop-card" id="shopMainBlock">
             <h2 style="color: #ff4081; margin: 0; text-align: center;">Призовой Магазин Пеппы 🧸</h2>
             <p style="color: #777; text-align: center; margin-bottom: 20px;">Меняй свои заработанные ⭐ Звездные монеты на крутые призы!</p>
-            
             <div class="shop-grid" translate="no" class="notranslate">
                 <div class="shop-item">
                     <span style="font-size: 3.5rem;">🏆</span>
                     <h3>Золотой Диплом</h3>
-                    <p>Скачай и распечатай настоящий диплом от Пеппы!</p>
-                    <button class="buy-btn" id="btnBuyItem1" onclick="buyItem(1, 20)">⭐ 20 монет</button>
+                    <p>Открой и распечатай диплом знатока прямо на сайте!</p>
+                    <button class="buy-btn" id="btnBuyItem1" onclick="buyItem(1, 100)">⭐ 100 монет</button>
                 </div>
                 <div class="shop-item">
                     <span style="font-size: 3.5rem;">👑</span>
                     <h3>Золотая Тема</h3>
                     <p>Преврати дизайн сайта в секретный золотой стиль!</p>
-                    <button class="buy-btn" id="btnBuyItem2" onclick="buyItem(2, 40)">⭐ 40 монет</button>
+                    <button class="buy-btn" id="btnBuyItem2" onclick="buyItem(2, 250)">⭐ 250 монет</button>
                 </div>
                 <div class="shop-item">
                     <span style="font-size: 3.5rem;">🦖</span>
                     <h3>Стикер Динозавра</h3>
                     <p>Эксклюзивный цифровой стикер любимой игрушки Джорджа.</p>
-                    <button class="buy-btn" id="btnBuyItem3" onclick="buyItem(3, 10)">⭐ 10 монет</button>
+                    <button class="buy-btn" id="btnBuyItem3" onclick="buyItem(3, 50)">⭐ 50 монет</button>
                 </div>
+            </div>
+        </div>
+        <div class="diploma-card hidden" id="diplomaBlock">
+            <div class="diploma-view">
+                <span style="font-size: 5rem;">🏆</span>
+                <h1 style="color: #ff4081; margin: 10px 0; font-size: 2.2rem;">ДИПЛОМ ЗНАТОКА</h1>
+                <p style="font-size: 1.2rem; color: #555;">Награждается самый умный ученик</p>
+                <p style="font-size: 1.5rem; font-weight: bold; color: var(--duo-green); margin: 20px 0;">За успешное изучение английского языка вместе со Свинкой Пеппой!</p>
+                <button class="action-btn" style="margin-top: 30px;" onclick="closeDiploma()">⬅️ НАЗАД В МАГАЗИН</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-layout hidden" id="sec4">
+        <div class="profile-card">
+            <div class="avatar-box">👦</div>
+            <h2 style="margin: 5px 0 0 0;">Личный кабинет ученика</h2>
+            <p style="color: #888; margin: 5px 0 20px 0;">Твой игровой статус и открытые награды</p>
+            <div class="achievements-title">🏆 Твои Достижения (Ачивки)</div>
+            <div class="achievements-grid">
+                <div class="ach-item" id="ach-friend"><div class="ach-icon">🐷</div><div class="ach-info"><h4>Друг Пеппы</h4><p id="txt-ach-friend">Закрыто. Пройди самый первый урок курса!</p></div></div>
+                <div class="ach-item" id="ach-puddles"><div class="ach-icon">💦</div><div class="ach-info"><h4>Любитель луж</h4><p id="txt-ach-puddles">Закрыто. Набери первые 30 звездных монет.</p></div></div>
+                <div class="ach-item" id="ach-dino"><div class="ach-icon">🦖</div><div class="ach-info"><h4>Коллекционер Динозавров</h4><p id="txt-ach-dino">Закрыто. Купи стикер Динозавра в магазине бонусов.</p></div></div>
+                <div class="ach-item" id="ach-expert"><div class="ach-icon">🎓</div><div class="ach-info"><h4>Настоящий Знаток</h4><p id="txt-ach-expert">Закрыто. Накопи очки и разблокируй Золотой Диплом.</p></div></div>
+                <div class="ach-item" id="ach-arcade"><div class="ach-icon">🎰</div><div class="ach-info"><h4>Мастер Аркады</h4><p id="txt-ach-arcade">Закрыто. Дай 10 верных ответов подряд в мини-игры.</p></div></div>
             </div>
         </div>
     </div>
@@ -314,11 +359,66 @@
             { word: "Car", trans: "Машина", img: "https://icons8.com" },
             { word: "House", trans: "Дом", img: "https://icons8.com" },
             { word: "Milk", trans: "Молоко", img: "https://icons8.com" },
-            { word: "Banana", trans: "Банан", img: "https://icons8.com" }
+            { word: "Banana", trans: "Банан", img: "https://icons8.com" },
+            { word: "Bird", trans: "Птица", img: "https://icons8.com" },
+            { word: "Fish", trans: "Рыба", img: "https://icons8.com" },
+            { word: "Tree", trans: "Дерево", img: "https://icons8.com" },
+            { word: "Flower", trans: "Цветок", img: "https://icons8.com" },
+            { word: "Water", trans: "Вода", img: "https://icons8.com" },
+            { word: "Book", trans: "Книга", img: "https://icons8.com" },
+            { word: "Pen", trans: "Ручка", img: "https://icons8.com" },
+            { word: "Chair", trans: "Стул", img: "https://icons8.com" },
+            { word: "Table", trans: "Стол", img: "https://icons8.com" },
+            { word: "Bed", trans: "Кровать", img: "https://icons8.com" },
+            { word: "Hat", trans: "Шляпа", img: "https://icons8.com" },
+            { word: "Shoes", trans: "Обувь", img: "https://icons8.com" },
+            { word: "Socks", trans: "Носки", img: "https://icons8.com" },
+            { word: "Coat", trans: "Пальто", img: "https://icons8.com" },
+            { word: "Cake", trans: "Торт", img: "https://icons8.com" },
+            { word: "Bread", trans: "Хлеб", img: "https://icons8.com" },
+            { word: "Cheese", trans: "Сыр", img: "https://icons8.com" },
+            { word: "Egg", trans: "Яйцо", img: "https://icons8.com" },
+            { word: "Ice cream", trans: "Мороженое", img: "https://icons8.com" },
+            { word: "Juice", trans: "Сок", img: "https://icons8.com" }
         ];
+        const extraWords = [
+            { word: "Bear", trans: "Медведь", img: "https://icons8.com" },
+            { word: "Fox", trans: "Лиса", img: "https://icons8.com" },
+            { word: "Hare", trans: "Заяц", img: "https://icons8.com" },
+            { word: "Mouse", trans: "Мышь", img: "https://icons8.com" },
+            { word: "Pig", trans: "Свинья", img: "https://icons8.com" },
+            { word: "Cow", trans: "Корова", img: "https://icons8.com" },
+            { word: "Horse", trans: "Лошадь", img: "https://icons8.com" },
+            { word: "Sheep", trans: "Овечка", img: "https://icons8.com" },
+            { word: "Duck", trans: "Утка", img: "https://icons8.com" },
+            { word: "Bee", trans: "Пчела", img: "https://icons8.com" },
+            { word: "Bus", trans: "Автобус", img: "https://icons8.com" },
+            { word: "Bike", trans: "Велосипед", img: "https://icons8.com" },
+            { word: "Plane", trans: "Самолёт", img: "https://icons8.com" },
+            { word: "Ship", trans: "Корабль", img: "https://icons8.com" },
+            { word: "Moon", trans: "Луна", img: "https://icons8.com" },
+            { word: "Star", trans: "Звезда", img: "https://icons8.com" },
+            { word: "Rain", trans: "Дождь", img: "https://icons8.com" },
+            { word: "Snow", trans: "Снег", img: "https://icons8.com" },
+            { word: "Wind", trans: "Ветер", img: "https://icons8.com" },
+            { word: "Fire", trans: "Огонь", img: "https://icons8.com" },
+            { word: "Mummy", trans: "Мама", img: "https://icons8.com" },
+            { word: "Daddy", trans: "Папа", img: "https://icons8.com" },
+            { word: "Brother", trans: "Брат", img: "https://icons8.com" },
+            { word: "Sister", trans: "Сестра", img: "https://icons8.com" },
+            { word: "Spoon", trans: "Ложка", img: "https://icons8.com" },
+            { word: "Cup", trans: "Чашка", img: "https://icons8.com" },
+            { word: "Apple tree", trans: "Яблоня", img: "https://icons8.com" },
+            { word: "Carrot", trans: "Морковь", img: "https://icons8.com" },
+            { word: "Tomato", trans: "Помидор", img: "https://icons8.com" },
+            { word: "Potato", trans: "Картофель", img: "https://icons8.com" }
+        ];
+        
+        arcadeDictionary.push(...extraWords);
 
         let currentLevel = parseInt(localStorage.getItem('peppa_project_level')) || 0;
         let globalScore = parseInt(localStorage.getItem('peppa_project_score')) || 0;
+        let arcadeStreak = parseInt(localStorage.getItem('peppa_arcade_streak')) || 0;
         let selectedWord = "";
         let wrongAttempts = 0;
         let isCorrectState = false;
@@ -329,12 +429,12 @@
             document.getElementById('scoreDisplay').innerText = globalScore;
             localStorage.setItem('peppa_project_score', globalScore);
             updateShopButtons();
+            checkAchievements();
         }
 
-        // Новая логика на цифрах 1, 2, 3 — автопереводчик бессилен!
         function switchTab(num) {
             activeTabNum = num;
-            for(let i = 1; i <= 3; i++) {
+            for(let i = 1; i <= 4; i++) {
                 document.getElementById('tab' + i).classList.remove('active');
                 document.getElementById('sec' + i).classList.add('hidden');
             }
@@ -350,10 +450,16 @@
                 document.getElementById('progContainer').style.visibility = 'hidden';
                 document.getElementById('statLabel').innerHTML = `🎮 Игровая сессия`;
                 initArcadeLevel();
-            } else {
+            } else if (num === 3) {
                 document.getElementById('progContainer').style.visibility = 'hidden';
                 document.getElementById('statLabel').innerHTML = `🎁 Лавка наград`;
+                document.getElementById('shopMainBlock').classList.remove('hidden');
+                document.getElementById('diplomaBlock').classList.add('hidden');
                 updateShopButtons();
+            } else {
+                document.getElementById('progContainer').style.visibility = 'hidden';
+                document.getElementById('statLabel').innerHTML = `👦 Профиль ученика`;
+                checkAchievements();
             }
         }
         function initGame() {
@@ -373,7 +479,7 @@
             document.getElementById('videoPlayer').src = currentData.videoUrl;
             document.getElementById('questionText').innerText = currentData.question;
             document.getElementById('progressBar').style.width = (currentLevel / episodes.length) * 100 + "%";
-            renderCards(currentData.options, 'cardsContainer');
+            renderCards(currentData.options, 'cardsContainer', true);
         }
 
         function initArcadeLevel() {
@@ -387,21 +493,27 @@
                 if(!options.find(o => o.word === rand.word)) { options.push(rand); }
             }
             options.sort(() => Math.random() - 0.5);
-            renderCards(options, 'arcadeCardsContainer');
+            renderCards(options, 'arcadeCardsContainer', false);
             speakEnglish(randomTarget.word);
         }
 
-        function renderCards(optionsList, containerId) {
+        function repeatArcadeAudio() {
+            if(currentArcadeQuestion) { speakEnglish(currentArcadeQuestion.word); }
+        }
+
+        function renderCards(optionsList, containerId, showText) {
             const container = document.getElementById(containerId);
             container.innerHTML = ""; selectedWord = "";
             optionsList.forEach(opt => {
                 const card = document.createElement('div');
                 card.className = 'word-card';
                 card.id = containerId + "-card-" + opt.word.replace(/\s+/g, '-'); 
+                const engTextHtml = showText ? `<div class="english-word notranslate" translate="no">${opt.word}</div>` : '';
                 card.innerHTML = `<img src="${opt.img}"><div class="english-word notranslate" translate="no">${opt.word}</div><div class="translation">${opt.trans}</div>`;
                 card.onclick = () => {
                     document.querySelectorAll('#' + containerId + ' .word-card').forEach(c => c.classList.remove('selected'));
-                    card.classList.add('selected'); selectedWord = opt.word; speakEnglish(opt.word);
+                    card.classList.add('selected'); selectedWord = opt.word; 
+                    if(showText) { speakEnglish(opt.word); }
                 };
                 container.appendChild(card);
             });
@@ -419,16 +531,31 @@
             const correctAnswer = episodes[currentLevel].correct;
             if (selectedWord === correctAnswer) {
                 isCorrectState = true; globalScore += 10;
-                showPeppaModal("🎉 СУПЕР! 🎉", "Правильно! Ты получаешь ⭐ 10 звездных монет!", "ИДТИ ДАЛЬШЕ ➡️", true);
+                showPeppaModal("🎉 СУПЕР! 🎉", "Правильно! Ты получаешь ⭐ 10 монет!", "ИДТИ ДАЛЬШЕ ➡️", true);
             } else { handleWrongAnswer(correctAnswer, 'cardsContainer'); }
         }
 
         function checkArcadeAnswer() {
             if (!selectedWord) { return showPeppaModal("🐷 Хрю!", "Сначала выбери ответ!", "ОК", false); }
             if (selectedWord === currentArcadeQuestion.word) {
-                isCorrectState = true; globalScore += 5;
-                showPeppaModal("🌟 ОТЛИЧНО! 🌟", "Верно! Получай ⭐ 5 звездных монет!", "ДАЛЬШЕ 🚀", true);
-            } else { handleWrongAnswer(currentArcadeQuestion.word, 'arcadeCardsContainer'); }
+                isCorrectState = true; globalScore += 5; arcadeStreak++;
+                localStorage.setItem('peppa_arcade_streak', arcadeStreak);
+                showPeppaModal("🌟 ОТЛИЧНО! 🌟", "Верно! Получай ⭐ 5 звездных монет!", "СЛЕДУЮЩЕЕ СЛОВО 🚀", true);
+            } else { arcadeStreak = 0; localStorage.setItem('peppa_arcade_streak', arcadeStreak); handleWrongAnswer(currentArcadeQuestion.word, 'arcadeCardsContainer'); }
+        }
+
+        function checkAchievements() {
+            if(currentLevel >= 1) { unlockAch('friend', 'Успешно! Ты открыл курс и прошёл первый урок.'); }
+            if(globalScore >= 30) { unlockAch('puddles', 'Успешно! Ты накопил больше 30 звездных монет.'); }
+            if(localStorage.getItem('peppa_shop_item_3') === 'true') { unlockAch('dino', 'Успешно! В твоём профиле появился Динозавр Джорджа!'); }
+            if(localStorage.getItem('peppa_shop_item_1') === 'true') { unlockAch('expert', 'Успешно! Ты выкупил Высший Золотой Диплом курса!'); }
+            if(arcadeStreak >= 10) { unlockAch('arcade', 'Успешно! Ты дал 10 правильных ответов подряд на слух!'); }
+        }
+
+        function unlockAch(id, text) {
+            const item = document.getElementById('ach-' + id);
+            const p = document.getElementById('txt-ach-' + id);
+            if(item && p) { item.classList.add('unlocked'); p.innerText = text; }
         }
 
         function handleWrongAnswer(correctAnswer, containerId) {
@@ -442,11 +569,8 @@
         }
 
         function showPeppaModal(title, text, btnText, isCorrect) {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalText').innerText = text;
-            document.getElementById('modalBtn').innerText = btnText;
-            document.getElementById('modalBadge').innerText = isCorrect ? "🐷" : "💡";
-            document.getElementById('peppaModalOverlay').classList.add('active');
+            document.getElementById('modalTitle').innerText = title; document.getElementById('modalText').innerText = text; document.getElementById('modalBtn').innerText = btnText;
+            document.getElementById('modalBadge').innerText = isCorrect ? "🐷" : "💡"; document.getElementById('peppaModalOverlay').classList.add('active');
         }
 
         function closeModal() {
@@ -463,39 +587,26 @@
             for(let i = 1; i <= 3; i++) {
                 const btn = document.getElementById('btnBuyItem' + i);
                 if(!btn) continue;
-                const cost = i === 1 ? 20 : (i === 2 ? 40 : 10);
+                const cost = i === 1 ? 100 : (i === 2 ? 250 : 50);
                 const isBought = localStorage.getItem('peppa_shop_item_' + i) === 'true';
-                if(isBought) {
-                    btn.innerText = "✨ ОТКРЫТО"; btn.disabled = true;
-                } else {
-                    btn.disabled = globalScore < cost;
-                }
+                if(isBought) { btn.innerText = "✨ ОТКРЫТО"; btn.disabled = true; } else { btn.disabled = globalScore < cost; }
             }
         }
 
         function buyItem(itemId, cost) {
             if(globalScore >= cost) {
-                globalScore -= cost;
-                localStorage.setItem('peppa_shop_item_' + itemId, 'true');
-                updateScoreDisplay();
-                if(itemId === 2) {
-                    document.body.classList.add('gold-theme');
-                    showPeppaModal("👑 ЗОЛОТАЯ ТЕМА 👑", "Дизайн успешно куплен!", "КРУТО!", false);
-                } else if(itemId === 1) {
-                    window.open('https://icons8.com', '_blank');
-                    showPeppaModal("🏆 ДИПЛОМ КУПЛЕН", "Твой диплом открылся в новой вкладке. Сохрани его!", "УРА!", false);
-                } else {
-                    showPeppaModal("🦖 СТИКЕР ОТКРЫТ", "Ты успешно купил наклейку Динозавра!", "СУПЕР!", false);
-                }
+                globalScore -= cost; localStorage.setItem('peppa_shop_item_' + itemId, 'true'); updateScoreDisplay();
+                if(itemId === 2) { document.body.classList.add('gold-theme'); showPeppaModal("👑 ЗОЛОТАЯ ТЕМА 👑", "Дизайн успешно куплен!", "КРУТО!", false); } 
+                else if(itemId === 1) { document.getElementById('shopMainBlock').classList.add('hidden'); document.getElementById('diplomaBlock').classList.remove('hidden'); } 
+                else { showPeppaModal("🦖 СТИКЕР ОТКРЫТ", "Ты успешно купил наклейку Динозавра! Проверь вкладку Профиль!", "СУПЕР!", false); }
             }
         }
 
+        function closeDiploma() { document.getElementById('diplomaBlock').classList.add('hidden'); document.getElementById('shopMainBlock').classList.remove('hidden'); }
+
         function resetProgress() {
-            localStorage.removeItem('peppa_project_level');
-            currentLevel = 0;
-            document.getElementById('victoryScreen').classList.add('hidden');
-            document.getElementById('sec1').classList.remove('hidden');
-            switchTab(1);
+            localStorage.removeItem('peppa_project_level'); currentLevel = 0;
+            document.getElementById('victoryScreen').classList.add('hidden'); document.getElementById('sec1').classList.remove('hidden'); switchTab(1);
         }
 
         if(localStorage.getItem('peppa_shop_item_2') === 'true') { document.body.classList.add('gold-theme'); }

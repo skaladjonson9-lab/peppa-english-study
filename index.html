@@ -71,10 +71,11 @@
         .video-card h2 { margin: 0 0 10px 0; font-size: 1.4rem; color: #ff6b9d; }
         .video-card p { margin: 0 0 15px 0; color: #888; font-size: 1rem; }
         .video-wrapper {
-            position: relative; padding-bottom: 56.25%; height: 0;
+            position: relative; width: 100%; height: auto;
             border-radius: 20px; overflow: hidden; border: 3px solid #fcebf2;
+            background: #000;
         }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .video-wrapper video { width: 100%; display: block; border-radius: 16px; outline: none; }
         
         .question-text { font-size: 1.4rem; font-weight: bold; margin-bottom: 20px; text-align: center; color: #4a4a4a; }
         .cards-grid {
@@ -225,7 +226,7 @@
         </div>
         <div class="tabs-container">
             <button class="tab-btn active" id="tab1" onclick="switchTab(1)">📚 Уроки</button>
-            <button class="tab-btn" id="tab2" onclick="switchTab(2)">🎮 Мини-игра</button>
+            <button class="tab-btn" id="tab2" onclick="switchTab(2)">🎮 Mini-игра</button>
             <button class="tab-btn" id="tab3" onclick="switchTab(3)">🎁 Магазин</button>
             <button class="tab-btn" id="tab4" onclick="switchTab(4)">👦 Профиль</button>
         </div>
@@ -236,7 +237,8 @@
             <h2 id="lessonTitle">Загрузка урока...</h2>
             <p id="lessonDesc">Посмотри отрывок серии и выполни задание ниже!</p>
             <div class="video-wrapper">
-                <iframe id="videoPlayer" src="https://youtube.com" allowfullscreen></iframe>
+                <!-- Локальный HTML5 видеоплеер с кнопками управления -->
+                <video id="videoPlayer" controls playsinline src=""></video>
             </div>
         </div>
         <div class="quiz-card">
@@ -268,7 +270,6 @@
                 <div class="shop-item"><span style="font-size: 3rem;">🌈</span><h3>Радужный Ник</h3><p>Твоё имя засияет всеми цветами радуги!</p><button class="buy-btn" id="btnBuyItem4" onclick="buyItem(4, 70)">⭐ 70 монет</button></div>
                 <div class="shop-item"><span style="font-size: 3rem;">🎅</span><h3>Костюм Папы Свина</h3><p>Открывает аватар Папы Свина в профиле!</p><button class="buy-btn" id="btnBuyItem5" onclick="buyItem(5, 150)">⭐ 150 монет</button></div>
                 <div class="shop-item"><span style="font-size: 3rem;">📻</span><h3>Музыкальный Плеер</h3><p>Открывает ачивку меломана в профиле!</p><button class="buy-btn" id="btnBuyItem6" onclick="buyItem(6, 200)">⭐ 200 монет</button></div>
-                <!-- Новые 4 товара для расширения лавки -->
                 <div class="shop-item"><span style="font-size: 3rem;">🎈</span><h3>Воздушный Шарик</h3><p>Милый розовый шарик Свинки Пеппы!</p><button class="buy-btn" id="btnBuyItem7" onclick="buyItem(7, 30)">⭐ 30 монет</button></div>
                 <div class="shop-item"><span style="font-size: 3rem;">🍦</span><h3>Мега Мороженое</h3><p>Огромный клубничный рожок безлимитно!</p><button class="buy-btn" id="btnBuyItem8" onclick="buyItem(8, 60)">⭐ 60 монет</button></div>
                 <div class="shop-item"><span style="font-size: 3rem;">🚜</span><h3>Трактор Дедушки</h3><p>Мощный синий трактор для весёлой фермы!</p><button class="buy-btn" id="btnBuyItem9" onclick="buyItem(9, 120)">⭐ 120 монет</button></div>
@@ -286,7 +287,7 @@
             </div>
         </div>
 
-        <!-- Заготовка под Королевский Диплом (для последующего редактирования через ИИ) -->
+        <!-- Заготовка под Королевский Диплом (для редактирования в будущем) -->
         <div class="diploma-card hidden" id="royalDiplomaBlock">
             <div class="royal-diploma-view">
                 <span style="font-size: 6rem;">👑</span>
@@ -363,13 +364,63 @@
     </div>
 
     <script translate="no" class="notranslate">
-        // База уроков переведена строго на ЭМОДЗИ карточки с подписью на русском в скобках!
+        // Локальная база уроков под загруженные тобой MP4 файлы с вопросами по оригинальным фразам!
         const episodes = [
-            { title: "Урок 1: Веселая прогулка 💦", videoUrl: "https://youtube.com", question: "Что Пеппа больше всего любит делать в грязных лужах?", correct: "Jump", options: [{ word: "Jump", trans: "Прыгать", img: "💦" }, { word: "Sleep", trans: "Спать", img: "😴" }, { word: "Fly", trans: "Летать", img: "✈️" }] },
-            { title: "Урок 2: Любимые игрушки 🦖", videoUrl: "https://youtube.com", question: "Какое животное является любимой игрушкой маленького Джорджа?", correct: "Dinosaur", options: [{ word: "Cat", trans: "Кошка", img: "🐱" }, { word: "Dinosaur", trans: "Динозавр", img: "🦖" }, { word: "Dog", trans: "Собака", img: "🐶" }] },
-            { title: "Урок 3: Встречаем гостей 🐑", videoUrl: "https://youtube.com", question: "Кем овечка Сьюзи приходится Свинке Пеппе?", correct: "Friend", options: [{ word: "Friend", trans: "Друг", img: "🧑‍🤝‍🧑" }, { word: "Teacher", trans: "Учитель", img: "👩‍🏫" }, { word: "Enemy", trans: "Враг", img: "😾" }] },
-            { title: "Урок 4: Домашние питомцы 🦜", videoUrl: "https://youtube.com", question: "Какая птичка живет у дедушки и бабушки и умеет повторять слова?", correct: "Parrot", options: [{ word: "Duck", trans: "Утка", img: "🦆" }, { word: "Parrot", trans: "Попугай", img: "🦜" }, { word: "Owl", trans: "Сова", img: "🦉" }] },
-            { title: "Урок 5: Веселые игры 🙈", videoUrl: "https://youtube.com", question: "В какую популярную детскую игру играют Пеппа и Джордж?", correct: "Hide and seek", options: [{ word: "Football", trans: "Футбол", img: "⚽" }, { word: "Chess", trans: "Шахматы", img: "♟️" }, { word: "Hide and seek", trans: "Прятки", img: "🙈" }] }
+            { 
+                title: "Урок 1: Холодный зимний день ❄️", 
+                videoUrl: "VID_20260922_113630_446.mp4~2.mp4", 
+                question: "Послушай Пеппу в самом конце спуска. Кем стал упавший на спину Папа Свин? «My daddy makes a very good...»", 
+                correct: "Toboggan", 
+                options: [
+                    { word: "Toboggan", trans: "Санки", img: "🛷" }, 
+                    { word: "Snowman", trans: "Снеговик", img: "☃️" }, 
+                    { word: "Car", trans: "Машина", img: "🚗" }
+                ] 
+            },
+            { 
+                title: "Урок 2: Воздушный сюрприз 🎈", 
+                videoUrl: "VID_20260922_130256_324.mp4~2.mp4", 
+                question: "Папа Свин сделал шарик. Мадам Газель спрашивает: «Can anyone guess what it is?». И дети хором кричат:", 
+                correct: "Dinosaur", 
+                options: [
+                    { word: "Kangaroo", trans: "Кенгуру", img: "🦘" }, 
+                    { word: "Dinosaur", trans: "Динозавр", img: "🦖" }, 
+                    { word: "Lion", trans: "Лев", img: "🦁" }
+                ] 
+            },
+            { 
+                title: "Урок 3: Пиратский день рождения 🏴‍☠️", 
+                videoUrl: "VID_20260922_121905_162.mp4~2.mp4", 
+                question: "Все оделись пиратами. Послушай, какое громкое ковбойское слово выкрикивает прибежавший Педро Пони?", 
+                correct: "Yeehaw", 
+                options: [
+                    { word: "Yeehaw", trans: "И-ха! (Крик ковбоя)", img: "🤠" }, 
+                    { word: "Hello", trans: "Привет", img: "👋" }, 
+                    { word: "Arrgh", trans: "Аррр! (Крик пирата)", img: "🏴‍☠️" }
+                ] 
+            },
+            { 
+                title: "Урок 4: Тыквенная вечеринка 🎃", 
+                videoUrl: "VID_20260922_113639_361.mp4~2.mp4", 
+                question: "Послушай овечку Сьюзи, когда она открывает дверь. Кем она нарядилась? «I'm a beautiful...»", 
+                correct: "Vampire", 
+                options: [
+                    { word: "Witch", trans: "Ведьма", img: "🧙‍♀️" }, 
+                    { word: "Vampire", trans: "Вампир", img: "🧛‍♀️" }, 
+                    { word: "Ghost", trans: "Призрак", img: "👻" }
+                ] 
+            },
+            { 
+                title: "Урок 5: День рождения Пеппы 🎂", 
+                videoUrl: "VID_20260922_113642_495.mp4~2.mp4", 
+                question: "Папа просил назвать его Мистерио, но Пеппа запуталась и громко объявила: «Ladies and gentlemen, it's...»", 
+                correct: "Magic Daddy", 
+                options: [
+                    { word: "Wizard", trans: "Волшебник", img: "🧙‍♂️" }, 
+                    { word: "Mysterio", trans: "Мистерио", img: "🎩" }, 
+                    { word: "Magic Daddy", trans: "Магический Папа", img: "🐷" }
+                ] 
+            }
         ];
         const arcadeDictionary = [
             { word: "Apple", trans: "Яблоко", img: "🍎" },
@@ -468,7 +519,6 @@
             { id: "n3", icon: "🛒", title: "Шопоголик", desc: "Выкупи абсолютно все товары лавки." },
             { id: "n4", icon: "🎩", title: "Джентльмен", desc: "Поставь аватаром скрытого Папу Свина." },
             { id: "n5", icon: "🍦", title: "Клубничное мороженое", desc: "Загрузи своё фото на аватарку из галереи." },
-            // Новые 5 достижений под расширение магазина и дипломов!
             { id: "x1", icon: "🎈", title: "Летим вверх!", desc: "Купи Розовый Воздушный Шарик." },
             { id: "x2", icon: "🍧", title: "Сладкоежка", desc: "Купи Мега Мороженое в лавке." },
             { id: "x3", icon: "🚜", title: "Весёлый фермер", desc: "Купи Трактор Дедушки Свина." },
@@ -498,6 +548,10 @@
             document.getElementById('victoryScreen').classList.add('hidden');
             document.getElementById('tab' + num).classList.add('active');
             document.getElementById('sec' + num).classList.remove('hidden');
+
+            if (document.getElementById('videoPlayer')) {
+                document.getElementById('videoPlayer').pause();
+            }
 
             if(num === 1) {
                 document.getElementById('progContainer').style.visibility = 'visible';
@@ -534,10 +588,8 @@
                 profileAvatarNode.innerHTML = savedAvatar;
             }
             
-            // Сбрасываем старые стили ника
             document.getElementById('profileName').classList.remove('rainbow', 'royal-gold');
             
-            // Если открыты ВСЕ 35 ачивок — ник становится золотым королевским!
             let unlockedCount = 0;
             achConfig.forEach(a => { if(localStorage.getItem('peppa_ach_unlocked_' + a.id) === 'true') unlockedCount++; });
             
@@ -553,7 +605,6 @@
             
             if(localStorage.getItem('peppa_shop_item_5') === 'true') { document.getElementById('secretAvatarItem').classList.remove('hidden'); }
             
-            // Загрузка Главной Награды в шапку профиля
             const showcasedId = localStorage.getItem('peppa_showcased_ach');
             const badgeContainer = document.getElementById('showcaseBadgeContainer');
             if(showcasedId) {
@@ -582,7 +633,7 @@
 
         function uploadAvatarFromGallery() {
             const files = document.getElementById('galleryPhotoInput').files;
-            if(files && files[0]) {
+            if(files && files.length > 0) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     localStorage.setItem('peppa_user_avatar', e.target.result);
@@ -654,7 +705,14 @@
             }
             updateScoreDisplay();
             document.getElementById('lessonTitle').innerText = currentData.title;
-            document.getElementById('videoPlayer').src = currentData.videoUrl;
+            
+            // Загрузка твоего локального MP4 файла в видеоплеер
+            const videoNode = document.getElementById('videoPlayer');
+            if (videoNode) {
+                videoNode.src = currentData.videoUrl;
+                videoNode.load();
+            }
+            
             document.getElementById('questionText').innerText = currentData.question;
             if(document.getElementById('progContainer')) { document.getElementById('progContainer').style.visibility = 'visible'; }
             document.getElementById('progressBar').style.width = (currentLevel / episodes.length) * 100 + "%";
@@ -685,7 +743,7 @@
                 card.className = 'word-card';
                 card.id = containerId + "-card-" + opt.word.replace(/\s+/g, '-'); 
                 
-                // Исправлено: перевод в скобочках пишется ВСЕГДА — и в основном тесте, и в аркаде на слух!
+                // Перевод в скобочках пишется ВСЕГДА — и в основном тесте, и в аркаде на слух!
                 const labelText = `${opt.word} (${opt.trans})`;
                 const engTextHtml = `<div class="english-word notranslate" translate="no">${labelText}</div>`;
                 
@@ -712,6 +770,10 @@
                 isCorrectState = true; globalScore += 10;
                 totalWrongStreak = 0; 
                 localStorage.setItem('peppa_ach_unlocked_l' + (currentLevel + 1), 'true');
+                
+                const videoNode = document.getElementById('videoPlayer');
+                if (videoNode) { videoNode.pause(); }
+                
                 showPeppaModal("🎉 СУПЕР! 🎉", "Правильно! Ты получаешь ⭐ 10 монет!", "ДАЛЬШЕ ➡️", true);
             } else { totalWrongStreak++; handleWrongAnswer(correctAnswer, 'cardsContainer'); }
         }
@@ -814,7 +876,7 @@
                 const cardId = containerId + "-card-" + correctAnswer.replace(/\s+/g, '-'); 
                 const correctCard = document.getElementById(cardId);
                 if (correctCard) { correctCard.style.borderColor = "#ffeb3b"; correctCard.style.backgroundColor = "#fffde7"; correctCard.style.borderBottomColor = "#fdd835"; }
-            } else { showPeppaModal("❌ ОЙ-ОЙ! ❌", "Неправильно. Попробуй ещё раз!", "П ПОВТОРИТЬ", false); }
+            } else { showPeppaModal("❌ ОЙ-ОЙ! ❌", "Неправильно. Попробуй ещё раз!", "ПОВТОРИТЬ", false); }
             checkAchievements(); 
         }
 

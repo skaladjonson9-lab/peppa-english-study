@@ -72,7 +72,7 @@
             max-width: 900px; margin: 25px auto; padding: 0 15px;
             display: flex; flex-direction: column; gap: 20px;
         }
-        /* ========================================== */
+                /* ========================================== */
         /*     CSS МАРКЕР: ЧАСТЬ 3 ИЗ 18 СТИЛИ        */
         /* ========================================== */
         .video-card, .quiz-card, .arcade-card, .shop-card, .diploma-card, .profile-card {
@@ -849,7 +849,7 @@
                 showPeppaModal("🌟 ОТЛИЧНО! 🌟", "Верно! Получай ⭐ 5 звездных монет!", "ДАЛЬШЕ 🚀", true);
             } else { arcadeStreak = 0; totalWrongStreak++; localStorage.setItem('peppa_arcade_streak', arcadeStreak); handleWrongAnswer(currentArcadeQuestion.word, 'arcadeCardsContainer'); }
         }
-        // ==========================================
+                // ==========================================
         // 📦 JS МАРКЕР: ЧАСТЬ 18 ИЗ 18 СИСТЕМЫ И ФИНАЛ
         // ==========================================
         /* Фоновая автоматическая проверка всех 35 достижений с защитой от сброса! */
@@ -983,7 +983,6 @@
 
         function closeDiploma() { document.getElementById('diplomaBlock').classList.add('hidden'); document.getElementById('shopMainBlock').classList.remove('hidden'); }
         
-        box-shadow: 0 0 20px rgba(255, 107, 157, 0.3);
         function openRoyalDiploma() { document.getElementById('sec4').classList.add('hidden'); document.getElementById('sec3').classList.remove('hidden'); document.getElementById('shopMainBlock').classList.add('hidden'); document.getElementById('royalDiplomaBlock').classList.remove('hidden'); }
         function closeRoyalDiploma() { document.getElementById('royalDiplomaBlock').classList.add('hidden'); document.getElementById('shopMainBlock').classList.remove('hidden'); switchTab(4); }
 

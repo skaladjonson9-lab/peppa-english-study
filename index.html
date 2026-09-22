@@ -1,3 +1,6 @@
+<!-- ========================================== -->
+<!--     HTML МАРКЕР: ЧАСТЬ 1 ИЗ 18 СТАРТ       -->
+<!-- ========================================== -->
 <!DOCTYPE html>
 <html lang="ru" translate="no" class="notranslate">
 <head>
@@ -6,6 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Peppa English Tracker, Arcade & Ultimate Profile</title>
     <style>
+        /* ========================================== */
+        /*     CSS МАРКЕР: ЧАСТЬ 1 ИЗ 18 СТИЛИ        */
+        /* ========================================== */
         :root {
             --bg-color: #fcebf2; 
             --primary-pink: #ffb7d5; 
@@ -41,6 +47,9 @@
         }
         .header-top { display: flex; justify-content: space-between; align-items: center; width: 100%; }
         .logo { font-size: 1.4rem; font-weight: bold; color: #ff6b9d; text-shadow: 1px 1px 0 #fff; }
+        /* ========================================== */
+        /*     CSS МАРКЕР: ЧАСТЬ 2 ИЗ 18 СТИЛИ        */
+        /* ========================================== */
         .tabs-container { display: flex; gap: 8px; margin-top: 5px; flex-wrap: wrap; }
         .tab-btn {
             background: none; border: none; font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif !important; font-size: 0.95rem;
@@ -63,6 +72,9 @@
             max-width: 900px; margin: 25px auto; padding: 0 15px;
             display: flex; flex-direction: column; gap: 20px;
         }
+        /* ========================================== */
+        /*     CSS МАРКЕР: ЧАСТЬ 3 ИЗ 18 СТИЛИ        */
+        /* ========================================== */
         .video-card, .quiz-card, .arcade-card, .shop-card, .diploma-card, .profile-card {
             background: white; border: 4px solid var(--card-border);
             border-radius: 28px; padding: 25px;
@@ -108,6 +120,9 @@
         .action-btn:active { transform: translateY(4px); border-bottom-width: 1px; }
         .hidden { display: none !important; }
         .win-screen { text-align: center; padding: 40px; }
+        /* ========================================== */
+        /*     CSS МАРКЕР: ЧАСТЬ 4 ИЗ 18 СТИЛИ        */
+        /* ========================================== */
         .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
         .shop-item {
             background: #fff; border: 3px solid #f5e1eb; border-bottom-width: 6px;
@@ -135,6 +150,9 @@
         
         .diploma-view { border: 8px double #ffd700; border-radius: 24px; padding: 35px 15px; background: #fffdf0; max-width: 450px; margin: 0 auto; text-align: center; }
         .royal-diploma-view { border: 10px ridge #ff6b9d; border-radius: 30px; padding: 40px 20px; background: linear-gradient(135deg, #fffdf0 0%, #fff0f5 100%); max-width: 450px; margin: 0 auto; text-align: center; box-shadow: 0 0 20px rgba(255, 107, 157, 0.3); }
+        /* ========================================== */
+        /*     CSS МАРКЕР: ЧАСТЬ 5 ИЗ 18 СТИЛИ        */
+        /* ========================================== */
         /* Стили Личного кабинета и Кастомизации */
         .profile-header { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; border-bottom: 2px solid #f5e1eb; padding-bottom: 15px; position: relative; }
         .avatar-container { position: relative; width: 95px; height: 90px; }
@@ -172,6 +190,9 @@
             text-shadow: 0 0 8px rgba(255, 215, 0, 0.2);
         }
         .profile-meta button { background: none; border: none; color: #ff6b9d; font-weight: bold; font-family: inherit; cursor: pointer; padding: 0; margin-top: 5px; font-size: 0.95rem; text-decoration: underline; }
+        /* ========================================== */
+        /*     CSS МАРКЕР: ЧАСТЬ 6 ИЗ 18 СТИЛИ        */
+        /* ========================================== */
         .avatar-selector { display: flex; gap: 10px; margin-top: 15px; justify-content: center; flex-wrap: wrap; background: #fff6fc; padding: 12px; border-radius: 20px; border: 3px dashed #f5e1eb; }
         .avatar-option { font-size: 2.2rem; cursor: pointer; padding: 3px; border-radius: 50%; width: 52px; height: 52px; display: flex; justify-content: center; align-items: center; border: 3px solid transparent; transition: all 0.2s; }
         .avatar-option.selected { border-color: var(--primary-pink); background: white; box-shadow: 0 3px 0 var(--primary-pink); }
@@ -192,6 +213,9 @@
         .ach-info p { margin: 0; font-size: 0.75rem; color: #999; }
         .ach-item.unlocked .ach-info p { color: #b38600; font-weight: bold; }
         .ach-item.showcased .ach-info p { color: #ff4081; }
+        /* ========================================== */
+        /*     CSS МАРКЕР: ЧАСТЬ 7 ИЗ 18 СТИЛИ        */
+        /* ========================================== */
         /* Стили встроенных мультяшных окошек */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(140, 102, 118, 0.4); backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.2s ease; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
@@ -213,6 +237,9 @@
     </style>
 </head>
 <body>
+    <!-- ========================================== -->
+    <!--     HTML МАРКЕР: ЧАСТЬ 7 ИЗ 18 ШАПКА       -->
+    <!-- ========================================== -->
     <header translate="no" class="notranslate">
         <div class="header-top">
             <div class="logo">🐷 Peppa Study</div>
@@ -231,6 +258,9 @@
             <button class="tab-btn" id="tab4" onclick="switchTab(4)">👦 Профиль</button>
         </div>
     </header>
+    <!-- ========================================== -->
+    <!--     HTML МАРКЕР: ЧАСТЬ 8 ИЗ 18 РАЗДЕЛЫ     -->
+    <!-- ========================================== -->
     <!-- СЕКЦИЯ 1: Уроки -->
     <div class="main-layout" id="sec1">
         <div class="video-card">
@@ -258,6 +288,9 @@
             <button class="action-btn" onclick="checkArcadeAnswer()">ПРОВЕРИТЬ</button>
         </div>
     </div>
+    <!-- ========================================== -->
+    <!--     HTML МАРКЕР: ЧАСТЬ 9 ИЗ 18 МАГАЗИН     -->
+    <!-- ========================================== -->
     <!-- СЕКЦИЯ 3: Магазин Наград -->
     <div class="main-layout hidden" id="sec3">
         <div class="shop-card" id="shopMainBlock">
@@ -287,7 +320,7 @@
             </div>
         </div>
 
-        <!-- Заготовка под Королевский Диплом (для редактирования в будущем) -->
+        <!-- Заготовка под Королевский Диплом -->
         <div class="diploma-card hidden" id="royalDiplomaBlock">
             <div class="royal-diploma-view">
                 <span style="font-size: 6rem;">👑</span>
@@ -298,6 +331,9 @@
             </div>
         </div>
     </div>
+    <!-- ========================================== -->
+    <!--     HTML МАРКЕР: ЧАСТЬ 10 ИЗ 18 ПРОФИЛЬ    -->
+    <!-- ========================================== -->
     <!-- СЕКЦИЯ 4: Профиль ученика -->
     <div class="main-layout hidden" id="sec4">
         <div class="profile-card">
@@ -333,6 +369,9 @@
             <div class="achievements-grid" id="achievementsGridBox"></div>
         </div>
     </div>
+    <!-- ========================================== -->
+    <!--     HTML МАРКЕР: ЧАСТЬ 11 ИЗ 18 ОКНА       -->
+    <!-- ========================================== -->
     <div class="main-layout hidden" id="victoryScreen">
         <div class="quiz-card win-screen">
             <h2>🎉 КУРС УСПЕШНО ЗАВЕРШЕН! 🎉</h2>
@@ -364,7 +403,10 @@
     </div>
 
     <script translate="no" class="notranslate">
-        // Локальная база уроков под загруженные тобой MP4 файлы с вопросами по оригинальным фразам!
+        // ==========================================
+        // 📦 JS МАРКЕР: ЧАСТЬ 11 ИЗ 18 БАЗА УРОКОВ
+        // ==========================================
+        
         const episodes = [
             { 
                 title: "Урок 1: Холодный зимний день ❄️", 
@@ -413,8 +455,8 @@
             { 
                 title: "Урок 5: День рождения Пеппы 🎂", 
                 videoUrl: "VID_20260922_113642_495.mp4~2.mp4", 
-                question: "Папа просил назвать его Мистерио, но Пеппа запуталась и громко объявила: «Ladies and gentlemen, it's...»", 
-                correct: "Magic Daddy", 
+                question: "Папа Свин просил назвать его секретным сценическим именем. Роль мага исполняет The Amazing...", 
+                correct: "Mysterio", 
                 options: [
                     { word: "Wizard", trans: "Волшебник", img: "🧙‍♂️" }, 
                     { word: "Mysterio", trans: "Мистерио", img: "🎩" }, 
@@ -422,6 +464,9 @@
                 ] 
             }
         ];
+        // ==========================================
+        // 📦 JS МАРКЕР: ЧАСТЬ 12 ИЗ 18 СЛОВАРЬ (1)
+        // ==========================================
         const arcadeDictionary = [
             { word: "Apple", trans: "Яблоко", img: "🍎" },
             { word: "Sun", trans: "Солнце", img: "☀️" },
@@ -454,6 +499,9 @@
             { word: "Ice cream", trans: "Мороженое", img: "🍦" },
             { word: "Juice", trans: "Сок", img: "🧃" }
         ];
+        // ==========================================
+        // 📦 JS МАРКЕР: ЧАСТЬ 13 ИЗ 18 СЛОВАРЬ (2)
+        // ==========================================
         const extraWords = [
             { word: "Bear", trans: "Медведь", img: "🐻" },
             { word: "Fox", trans: "Лиса", img: "🦊" },
@@ -488,6 +536,9 @@
         ];
         
         arcadeDictionary.push(...extraWords);
+        // ==========================================
+        // 📦 JS МАРКЕР: ЧАСТЬ 14 ИЗ 18 ДОСТИЖЕНИЯ
+        // ==========================================
         const achConfig = [
             { id: "l1", icon: "💦", title: "Первая лужа", desc: "Пройди Урок 1 серий." },
             { id: "l2", icon: "🦖", title: "Друг Джорджа", desc: "Пройди Урок 2 серий." },
@@ -525,6 +576,9 @@
             { id: "x4", icon: "🏰", title: "Владелец замка", desc: "Купи Королевский Замок за монеты." },
             { id: "x5", icon: "👑", title: "Персона Гранта", desc: "Открой абсолютно все 35 достижений игры!" }
         ];
+        // ==========================================
+        // 📦 JS МАРКЕР: ЧАСТЬ 15 ИЗ 18 ПЕРЕМЕННЫЕ И ВКЛАДКИ
+        // ==========================================
         let currentLevel = parseInt(localStorage.getItem('peppa_project_level')) || 0;
         let globalScore = parseInt(localStorage.getItem('peppa_project_score')) || 0;
         let arcadeStreak = parseInt(localStorage.getItem('peppa_arcade_streak')) || 0;
@@ -576,6 +630,9 @@
                 checkAchievements();
             }
         }
+        // ==========================================
+        // 📦 JS МАРКЕР: ЧАСТЬ 16 ИЗ 18 ПРОФИЛЬ ЛОГИКА
+        // ==========================================
         function loadUserProfile() {
             const savedName = localStorage.getItem('peppa_user_name') || "Ученик Пеппы";
             const savedAvatar = localStorage.getItem('peppa_user_avatar') || "👦";
@@ -641,7 +698,7 @@
                     loadUserProfile();
                     checkAchievements();
                 };
-                reader.readAsDataURL(files[0]);
+                reader.readAsDataURL(files);
             }
         }
 
@@ -688,6 +745,9 @@
                 container.appendChild(card);
             });
         }
+        // ==========================================
+        // 📦 JS МАРКЕР: ЧАСТЬ 17 ИЗ 18 ИГРА И ПЛЕЕР
+        // ==========================================
         function initGame() {
             if (currentLevel >= episodes.length) {
                 document.getElementById('sec1').classList.add('hidden');
@@ -789,6 +849,9 @@
                 showPeppaModal("🌟 ОТЛИЧНО! 🌟", "Верно! Получай ⭐ 5 звездных монет!", "ДАЛЬШЕ 🚀", true);
             } else { arcadeStreak = 0; totalWrongStreak++; localStorage.setItem('peppa_arcade_streak', arcadeStreak); handleWrongAnswer(currentArcadeQuestion.word, 'arcadeCardsContainer'); }
         }
+        // ==========================================
+        // 📦 JS МАРКЕР: ЧАСТЬ 18 ИЗ 18 СИСТЕМЫ И ФИНАЛ
+        // ==========================================
         /* Фоновая автоматическая проверка всех 35 достижений с защитой от сброса! */
         function checkAchievements() {
             let newlyUnlockedName = "";
@@ -920,6 +983,7 @@
 
         function closeDiploma() { document.getElementById('diplomaBlock').classList.add('hidden'); document.getElementById('shopMainBlock').classList.remove('hidden'); }
         
+        box-shadow: 0 0 20px rgba(255, 107, 157, 0.3);
         function openRoyalDiploma() { document.getElementById('sec4').classList.add('hidden'); document.getElementById('sec3').classList.remove('hidden'); document.getElementById('shopMainBlock').classList.add('hidden'); document.getElementById('royalDiplomaBlock').classList.remove('hidden'); }
         function closeRoyalDiploma() { document.getElementById('royalDiplomaBlock').classList.add('hidden'); document.getElementById('shopMainBlock').classList.remove('hidden'); switchTab(4); }
 
@@ -938,3 +1002,6 @@
     </script>
 </body>
 </html>
+<!-- ========================================== -->
+<!--     HTML МАРКЕР: ЧАСТЬ 18 ИЗ 18 ФИНАЛ КОНЕЦ -->
+<!-- ========================================== -->
